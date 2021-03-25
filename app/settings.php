@@ -33,6 +33,8 @@ return function (ContainerBuilder $containerBuilder) {
                         'user' => getenv('DB_USER') ?: 'root',
                         'password' => getenv('DB_PASSWORD') ?: ''
                     ],
+                    'charset' => 'utf8mb4',
+                    'collation' => 'utf8mb4_unicode_ci',
                 ]
             ]);
         }
