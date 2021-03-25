@@ -19,23 +19,11 @@ return function (App $app) {
         return $response;
     });
 
-    $app->post('/data', function (Request $request, Response $response) {
-        $parameters = json_decode((array)$request->getParsedBody(), TRUE);
-        $email = $parameters['email'];
-
-        $response->getBody()->write("Hello $email!");
-        return $response;
-    });
-
-
 
     $app->post('/name', function (Request $request, Response $response, $args): Response {
         $data = $request->getBody()->getContents();
-
         $html = var_export($data, true);
-
         $response->getBody()->write($html);
-
         return $response;
     });
 
