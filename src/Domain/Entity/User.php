@@ -8,9 +8,16 @@ declare(strict_types=1);
 
 namespace App\Domain\Entity;
 
+use App\Core\Service\PasswordService;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Infrastructure\Repository\DoctrineUserRepository;
 
+/**
+ * @ORM\Entity(repositoryClass=DoctrineUserRepository::class)
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="user")
+ */
 class User
 {
     /**
@@ -56,18 +63,19 @@ class User
      * @param string $email
      * @param string|null $name
      * @param string $password
+     * @param PasswordService $passwordService
      */
-    public function __construct(string $email, ?string $name, string $password)
+    public function __construct(string $email, ?string $name, string $password, PasswordService $passwordService)
     {
         $this->email = $email;
         $this->name = $name;
-        $this->password_hash = $password;
+        $this->password_hash = $passwordService->hash($password);
         $this->activated = false;
-        $this->createdAt = new DateTimeImmutable();
     }
 
-    public function isActive(): bool
+    public function isActive(): void
     {
-        return $this->activated = true;
+        $this->activated = true;
+        $this->createdAt = new DateTimeImmutable();
     }
 }
