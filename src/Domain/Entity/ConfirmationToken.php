@@ -58,6 +58,14 @@ class ConfirmationToken
         $this->createAt = new DateTimeImmutable();
     }
 
+    public function getValue(): string
+    {
+        return $this->value;
+    }
 
+    private function isEqualTo(string $value): bool
+    {
+        return $this->value === $value;
+    }
 
 }
