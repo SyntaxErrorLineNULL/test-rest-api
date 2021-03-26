@@ -11,6 +11,7 @@ namespace App\Domain\Entity;
 
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use DomainException;
 
 /**
  * @ORM\Entity(repositoryClass=DoctrineUserRepository::class)
@@ -58,6 +59,17 @@ class ConfirmationToken
         $this->createAt = new DateTimeImmutable();
     }
 
+    public function validateToken(string $token, DateTimeImmutable $time): void
+    {
+        if (!$this->isEqualTo($token)) {
+            throw new DomainException('Token is not validate');
+        }
+
+        if ($this->isExpiredTo($time)) {
+            throw new DomainException('Token is not expired');
+        }
+    }
+
     public function getValue(): string
     {
         return $this->value;
@@ -70,7 +82,7 @@ class ConfirmationToken
 
     private function isExpiredTo(DateTimeImmutable $time): bool
     {
-        return $this->createAt <= $time;
+        return $this->createAt < $time;
     }
 
 }
