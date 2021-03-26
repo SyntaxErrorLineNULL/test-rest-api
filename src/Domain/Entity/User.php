@@ -23,9 +23,9 @@ class User
 
     /**
      * @ORM\Column(type="string",length=50)
-     * @var string
+     * @var string|null
      */
-    public string $name;
+    public ?string $name;
 
     /**
      * @ORM\Column(type="string",nullable=false,length=32,options={"fixed"=true},unique=true)
