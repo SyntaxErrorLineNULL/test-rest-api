@@ -68,4 +68,9 @@ class ConfirmationToken
         return $this->value === $value;
     }
 
+    private function isExpiredTo(DateTimeImmutable $time): bool
+    {
+        return $this->createAt <= $time;
+    }
+
 }
