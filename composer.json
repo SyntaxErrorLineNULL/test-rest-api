@@ -25,6 +25,7 @@
         "php": "^7.4",
         "ext-json": "*",
         "doctrine/orm": "^2.8",
+        "firebase/php-jwt": "^5.2",
         "fzaninotto/faker": "^1.9",
         "guzzlehttp/psr7": "^1.8",
         "http-interop/http-factory-guzzle": "^1.0",
