@@ -12,9 +12,10 @@ namespace App\Domain\Entity;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use DomainException;
+use App\Infrastructure\Repository\DoctrineConfirmationToken;
 
 /**
- * @ORM\Entity(repositoryClass=DoctrineUserRepository::class)
+ * @ORM\Entity(repositoryClass=DoctrineConfirmationToken::class)
  * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="confirmation_token")
  */
