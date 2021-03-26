@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace App\Core\Service;
 
+use Webmozart\Assert\Assert;
 
 use RuntimeException;
 
@@ -30,15 +31,17 @@ class PasswordService
      */
     public function hash(string $password): string
     {
+        /** @var string|null|false $hash */
         $hash = '';
-
-        if (!empty($password)) {
-            throw new RuntimeException('Password is empty');
-        }
+        Assert::notEmpty($password);
 
         $hash = password_hash($password, PASSWORD_ARGON2ID, [
             'value' => $this->value
         ]);
+
+        if ($hash === null || $hash === false) {
+            throw new RuntimeException('Invalid hash algorithm');
+        }
 
         return $hash;
     }
