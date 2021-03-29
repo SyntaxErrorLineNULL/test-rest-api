@@ -1,5 +1,4 @@
 version: '3.7'
-
 volumes:
     logs:
         driver: local
@@ -16,3 +15,12 @@ services:
         volumes:
             - .:/var/www
             - logs:/var/www/logs
+    slim-php-fpm:
+        container_name: slim_php_fpm
+        build:
+            context: docker
+            dockerfile: /php-fpm/Dockerfile
+            cache_from:
+                - ${REGISTRY:-localhost}/slim-php-fpm
+        volumes:
+        -   ./:/app
