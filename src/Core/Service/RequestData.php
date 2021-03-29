@@ -26,10 +26,16 @@ class RequestData
         $this->serializerBuilder = $serializerBuilder;
     }
 
-
+    /**
+     * @param ServerRequestInterface $request
+     * @param string $object
+     * @return object
+     */
     public function getData(ServerRequestInterface $request, string $object): object
     {
         $serializer = $this->serializerBuilder->build();
         return $serializer->deserialize((string)$request->getBody(), $object, 'json');
     }
+
+    /** TODO: what if the data doesn't match the schema? */
 }

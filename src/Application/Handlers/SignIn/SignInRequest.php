@@ -12,7 +12,7 @@ use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\AccessorOrder;
 
 /**
- * @AccessorOrder("custom", custom = {"email", "name","password"})
+ * @AccessorOrder("custom", custom = {"email","name","password"})
  * @Serializer\ExclusionPolicy("all")
  */
 class SignInRequest
