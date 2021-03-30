@@ -18,8 +18,4 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --fil
     && composer global require hirak/prestissimo --no-plugins --no-scripts \
     && rm -rf /root/.composer/cache
 
-#RUN pecl install xdebug \
-#         && rm -rf /tmp/pear \
-#         && docker-php-ext-enable xdebug
-
 WORKDIR /app

@@ -3,7 +3,7 @@
 /**
  * https://insights.project-a.com/serializing-data-in-php-a-simple-primer-on-the-jms-serializer-and-fos-rest-f469d7d5b902
  */
-namespace App\Application\Handlers\SignIn;
+namespace App\Application\Handlers\Auth\SignIn;
 
 
 use App\Core\Service\RequestData;
