@@ -3,47 +3,36 @@ volumes:
     logs:
         driver: local
 services:
-    slim:
-        image: php:7-alpine
-        working_dir: /var/www
-        command: php -S 0.0.0.0:8080 -t public
-        environment:
-            docker: "true"
-        ports:
-            - 8080:8080
-        volumes:
-            - .:/var/www
-            - logs:/var/www/logs
-    slim-php-fpm:
-        container_name: slim_php_fpm
+    php-fpm:
+        container_name: app_php_fpm
         build:
+            dockerfile: php-fpm/Dockerfile
             context: docker
-            dockerfile: /php-fpm/Dockerfile
             cache_from:
-                - ${REGISTRY:-localhost}/slim-php-fpm
+                - ${REGISTRY:-localhost}/app-php-fpm
         volumes:
             - ./:/app
         links:
-            - slim-database
-    slim-php-cli:
-        container_name: slim_php_cli
+            - app-db
+    php-cli:
+        container_name: app_php_cli
         build:
+            dockerfile: php-cli/Dockerfile
             context: docker
-            dockerfile: /php-cli/Dockerfile
             cache_from:
-                - ${REGISTRY:-localhost}/slim-php-cli
+                - ${REGISTRY:-localhost}/app-php-cli
         volumes:
             - ./:/app
         links:
-            - slim-database
-    slim-database:
-        container_name: slim_postgres
+            - app-db
+    app-db:
+        container_name: app_postgres
         image: postgres:13.1-alpine
         environment:
             POSTGRES_USER: root
             POSTGRES_PASSWORD: 12345
             POSTGRES_DB: test
         volumes:
-            - slim-database:/var/lib/postgresql/data
+            - ./postgres-data:/var/lib/postgresql/data
         ports:
             - "54321:5432"

@@ -1,5 +1,4 @@
-init:
-	down build up composer-install
+init: down build up composer-install
 up:
 	docker-compose --file docker-compose.yml up -d
 down:
