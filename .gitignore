@@ -5,3 +5,6 @@
 /logs/*
 !/logs/README.md
 .phpunit.result.cache
+
+# database cache
+/postgres-data/*

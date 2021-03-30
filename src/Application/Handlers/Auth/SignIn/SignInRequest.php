@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Handlers\SignIn;
+namespace App\Application\Handlers\Auth\SignIn;
 
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\AccessorOrder;

@@ -3,18 +3,17 @@
 /**
  * https://insights.project-a.com/serializing-data-in-php-a-simple-primer-on-the-jms-serializer-and-fos-rest-f469d7d5b902
  */
-namespace App\Application\Handlers\SignIn;
+namespace App\Application\Handlers\Auth\SignIn;
 
 
 use App\Core\Service\RequestData;
-use Laminas\Diactoros\Response\JsonResponse;
+use Laminas\Diactoros\Response\EmptyResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class SignInHandler implements RequestHandlerInterface
 {
-
     private RequestData $data;
 
     /**
@@ -32,8 +31,6 @@ class SignInHandler implements RequestHandlerInterface
         /** @var SignInRequest $data */
         $data = $this->data->getData($request, SignInRequest::class);
 
-        $email = $data->email;
-
-        return new JsonResponse($email);
+        return new EmptyResponse();
     }
 }
