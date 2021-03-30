@@ -1,12 +1,15 @@
 init:
+	down build up composer-install
+up:
+	docker-compose --file docker-compose.yml up -d
+down:
+	docker-compose --file docker-compose.yml down -v --remove-orphans
+restart:
+	down up
+composer-install:
+	docker-compose --file docker-compose.yml run --rm php-cli composer install
+build:
+	docker-compose --file docker-compose.yml build
 
-up: docker-up
-down: docker-down
-restart: down up
-
-docker-up:
-	docker-compose up -d
-
-docker-down:
-	docker-compose down
+# TODO: create make command migrate, load fixture, generate-migration
 
