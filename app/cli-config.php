@@ -18,7 +18,7 @@ $dotEnv = Dotenv::createImmutable(__DIR__ . '../');
 $dotEnv->load();
 
 $setting = require_once (__DIR__ . 'settings.php');
-$doctrineSettings = $setting['doctrine'];
+$doctrineSettings = $setting['settings']['doctrine'];
 
 $config= Setup::createAnnotationMetadataConfiguration(
     $doctrineSettings['entity_path'],
