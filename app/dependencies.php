@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 use App\Application\Settings\SettingsInterface;
 use DI\ContainerBuilder;
+use Doctrine\Common\Cache\Cache;
+use Doctrine\ORM\Configuration;
+use Doctrine\ORM\EntityManager;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
@@ -20,13 +23,31 @@ return function (ContainerBuilder $containerBuilder) {
             $processor = new UidProcessor();
             $logger->pushProcessor($processor);
 
-            $handler = new StreamHandler($loggerSettings['path'], $loggerSettings['level']);
-            $logger->pushHandler($handler);
+            $logger->pushHandler(new StreamHandler($loggerSettings['path'], $loggerSettings['level']));
 
             return $logger;
         },
+
+        # ORM
+        EntityManager::class => function (ContainerInterface $c) {
+            $setting = $c->get(SettingsInterface::class);
+
+            $doctrineSettings = $setting->get('doctrine');
+
+            $cache = $setting->get(Cache::class);
+
+            # doctrine setting
+            $doctrineConfiguration = new Configuration();
+            $doctrineConfiguration->setProxyDir('data/doctrine');
+            $doctrineConfiguration->setQueryCacheImpl($cache);
+            $doctrineConfiguration->setHydrationCacheImpl($cache);
+            $doctrineConfiguration->setMetadataCacheImpl($cache);
+            $doctrineConfiguration->setResultCacheImpl($cache);
+
+            $em = EntityManager::create($doctrineSettings['doctrine']['connection'], $doctrineConfiguration);
+
+            return $em;
+        },
     ]);
-
-
 
 };
