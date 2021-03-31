@@ -1,48 +1,18 @@
 version: '3.7'
+
+volumes:
+  logs:
+    driver: local
+
 services:
-    api:
-        container_name: app_nginx
-        image: nginx
-        volumes:
-            - ./docker/nginx/:/etc/nginx/conf.d
-            - ./:/app
-        links:
-            - php-fpm
-        ports:
-            - '8000:80'
-    php-fpm:
-        container_name: app_php_fpm
-        image: ${REGISTRY:-localhost}/api-php-fpm
-        build:
-            context: docker
-            dockerfile: php-fpm/Dockerfile
-            cache_from:
-                - ${REGISTRY:-localhost}/app-php-fpm
-        volumes:
-            - ./:/app
-        links:
-            - app-db
-        working_dir: /app
-    php-cli:
-        container_name: app_php_cli
-        image: ${REGISTRY:-localhost}/api-php-cli
-        build:
-            context: docker
-            dockerfile: php-cli/Dockerfile
-            cache_from:
-                - ${REGISTRY:-localhost}/app-php-cli
-        volumes:
-            - ./:/app
-        links:
-            - app-db
-    app-db:
-        container_name: app_postgres
-        image: postgres:13.1-alpine
-        environment:
-            POSTGRES_USER: root
-            POSTGRES_PASSWORD: 12345
-            POSTGRES_DB: test
-        volumes:
-            - ./postgres-data:/var/lib/postgresql/data
-        ports:
-            - "54321:5432"
+  slim:
+    image: php:7-alpine
+    working_dir: /var/www
+    command: php -S 0.0.0.0:8080 -t public
+    environment:
+      docker: "true"
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/var/www
+      - logs:/var/www/logs

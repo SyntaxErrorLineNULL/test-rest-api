@@ -4,6 +4,7 @@ declare(strict_types=1);
 use App\Application\Actions\User\ListUsersAction;
 use App\Application\Actions\User\ViewUserAction;
 use App\Application\Handlers\Auth\SignIn\SignInHandler;
+use App\Application\Handlers\Auth\SignUp\SignUpHandler;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -36,6 +37,6 @@ return function (App $app) {
 
     $app->group('/api', function (Group $group) {
         $group->post('/sign_in', SignInHandler::class);
-        $group->post('/sign_up', \App\Application\Handlers\Auth\SignUp\SignUpHandler::class);
+        $group->post('/sign_up', SignUpHandler::class);
     });
 };
