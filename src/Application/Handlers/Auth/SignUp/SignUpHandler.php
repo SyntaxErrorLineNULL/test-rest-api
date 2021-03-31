@@ -30,11 +30,11 @@ class SignUpHandler implements RequestHandlerInterface
     /**
      * SignUpHandler constructor.
      * @param RequestData $data
-     * @param DoctrineUserRepository $userRepository
+     * @param UserRepository $userRepository
      * @param Flusher $flusher
      * @param PasswordService $passwordService
      */
-    public function __construct(RequestData $data, DoctrineUserRepository $userRepository, Flusher $flusher, PasswordService $passwordService)
+    public function __construct(RequestData $data, UserRepository $userRepository, Flusher $flusher, PasswordService $passwordService)
     {
         $this->data = $data;
         $this->userRepository = $userRepository;

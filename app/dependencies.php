@@ -1,7 +1,12 @@
 <?php
 declare(strict_types=1);
 
+use App\Application\Handlers\Auth\SignUp\SignUpHandler;
+use App\Application\Settings\Flusher;
 use App\Application\Settings\SettingsInterface;
+use App\Core\Service\PasswordService;
+use App\Core\Service\RequestData;
+use App\Domain\Repository\UserRepository;
 use DI\ContainerBuilder;
 use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\Configuration;
@@ -10,6 +15,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Log\LoggerInterface;
 
 return function (ContainerBuilder $containerBuilder) {
@@ -41,12 +47,21 @@ return function (ContainerBuilder $containerBuilder) {
             $doctrineConfiguration->setProxyDir('data/doctrine');
             $doctrineConfiguration->setQueryCacheImpl($cache);
             $doctrineConfiguration->setHydrationCacheImpl($cache);
-            $doctrineConfiguration->setMetadataCacheImpl($cache);
             $doctrineConfiguration->setResultCacheImpl($cache);
 
-            $em = EntityManager::create($doctrineSettings['doctrine']['connection'], $doctrineConfiguration);
+            $em = EntityManager::create($doctrineSettings['connection'], $doctrineConfiguration);
 
             return $em;
+        },
+
+        # SignUpHandler
+        RequestHandlerInterface::class => function (ContainerInterface $c) {
+            return new SignUpHandler(
+                $c->get(RequestData::class),
+                $c->get(UserRepository::class),
+                $c->get(Flusher::class),
+                $c->get(PasswordService::class),
+            );
         },
     ]);
 
