@@ -13,6 +13,7 @@ use App\Application\Settings\Flusher;
 use App\Core\Service\PasswordService;
 use App\Core\Service\RequestData;
 use App\Domain\Entity\User;
+use App\Domain\Repository\UserRepository;
 use App\Infrastructure\Repository\DoctrineUserRepository;
 use Laminas\Diactoros\Response\EmptyResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -22,7 +23,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 class SignUpHandler implements RequestHandlerInterface
 {
     private RequestData $data;
-    private DoctrineUserRepository $userRepository;
+    private UserRepository $userRepository;
     private Flusher $flusher;
     private PasswordService $passwordService;
 

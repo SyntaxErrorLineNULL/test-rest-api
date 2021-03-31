@@ -10,10 +10,11 @@ namespace App\Infrastructure\Repository;
 
 
 use App\Domain\Entity\ConfirmationToken;
+use App\Domain\Repository\ConfirmationTokenRepository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\ORMException;
 
-class DoctrineConfirmationToken extends EntityRepository
+class DoctrineConfirmationToken extends EntityRepository implements ConfirmationTokenRepository
 {
     /**
      * @param ConfirmationToken $token
@@ -31,5 +32,12 @@ class DoctrineConfirmationToken extends EntityRepository
     public function remove(ConfirmationToken $token): void
     {
         $this->_em->remove($token);
+    }
+
+    public function findByToken(string $token): ?ConfirmationToken
+    {
+        /** @var ConfirmationToken|null $confirmToken */
+        $confirmToken =  $this->findOneBy(['value' => $token]);
+        return $confirmToken;
     }
 }

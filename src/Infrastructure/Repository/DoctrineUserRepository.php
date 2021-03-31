@@ -11,11 +11,11 @@ namespace App\Infrastructure\Repository;
 
 use App\Domain\DomainException\DomainRecordNotFoundException;
 use App\Domain\Entity\User;
+use App\Domain\Repository\UserRepository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\ORMException;
-use Webmozart\Assert\Assert;
 
-class DoctrineUserRepository extends EntityRepository
+class DoctrineUserRepository extends EntityRepository implements UserRepository
 {
     /**
      * @param User $user
@@ -52,9 +52,15 @@ class DoctrineUserRepository extends EntityRepository
 
     public function findByEmail(string $email): ?User
     {
-        Assert::notEmpty($email);
         /** @var User|null $user */
         $user =  $this->findOneBy(['email' => $email]);
+        return $user;
+    }
+
+    public function findByEmailAndPassword(string $email, string $password): ?User
+    {
+        /** @var User|null $user */
+        $user =  $this->findOneBy(['email' => $email, 'password' => $password]);
         return $user;
     }
 }
