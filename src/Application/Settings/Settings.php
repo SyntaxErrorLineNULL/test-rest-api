@@ -8,7 +8,7 @@ class Settings implements SettingsInterface
     /**
      * @var array
      */
-    private $settings;
+    private array $settings;
 
     /**
      * Settings constructor.
