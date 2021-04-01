@@ -18,17 +18,17 @@ class DoctrineConfirmationToken implements ConfirmationTokenRepository
 {
 
     /** @var EntityRepository<ConfirmationToken> */
-    private EntityRepository $repositoryClass;
+    private EntityRepository $entityClass;
     private EntityManagerInterface $em;
 
     /**
      * DoctrineConfirmationToken constructor.
-     * @param EntityRepository $repositoryClass
+     * @param EntityRepository<ConfirmationToken> $entityClass
      * @param EntityManagerInterface $em
      */
-    public function __construct(EntityRepository $repositoryClass, EntityManagerInterface $em)
+    public function __construct(EntityRepository $entityClass, EntityManagerInterface $em)
     {
-        $this->repositoryClass = $repositoryClass;
+        $this->entityClass = $entityClass;
         $this->em = $em;
     }
 
@@ -51,7 +51,7 @@ class DoctrineConfirmationToken implements ConfirmationTokenRepository
     public function findByToken(string $token): ?ConfirmationToken
     {
         /** @var ConfirmationToken|null $confirmToken */
-        $confirmToken =  $this->repositoryClass->findOneBy(['value' => $token]);
+        $confirmToken =  $this->entityClass->findOneBy(['value' => $token]);
         return $confirmToken;
     }
 }
