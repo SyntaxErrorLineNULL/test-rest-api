@@ -21,7 +21,7 @@ return function (ContainerBuilder $containerBuilder) {
                 ],
 
                 'doctrine' => [
-                    'entity_path' => ['src/Domain/Entity'],
+                    'entity_path' => ['../src/Domain/Entity'],
                     'auto_generate_proxies' => true,
                     'proxy_dir' => __DIR__ . '/../data/cache/proxies',
                     'cache' => null,
@@ -33,8 +33,8 @@ return function (ContainerBuilder $containerBuilder) {
                         'user' => getenv('DB_USER') ?: 'root',
                         'password' => getenv('DB_PASSWORD') ?: ''
                     ],
-                    'charset' => 'utf8mb4',
-                    'collation' => 'utf8mb4_unicode_ci',
+                    'charset' => 'utf-8',
+                    'collation' => 'utf8_unicode_ci',
                 ]
             ]);
         }
