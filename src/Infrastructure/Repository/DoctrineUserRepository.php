@@ -12,27 +12,40 @@ namespace App\Infrastructure\Repository;
 use App\Domain\DomainException\DomainRecordNotFoundException;
 use App\Domain\Entity\User;
 use App\Domain\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\ORMException;
 
-class DoctrineUserRepository extends EntityRepository implements UserRepository
+class DoctrineUserRepository implements UserRepository
 {
+    /** @var EntityRepository<User> */
+    private EntityRepository $repositoryClass;
+    private EntityManagerInterface $em;
+
     /**
-     * @param User $user
-     * @throws ORMException
+     * DoctrineUserRepository constructor.
+     * @param EntityRepository<User> $repositoryClass
+     * @param EntityManagerInterface $em
      */
-    public function add(User $user): void
+    public function __construct(EntityRepository $repositoryClass, EntityManagerInterface $em)
     {
-        $this->_em->persist($user);
+        $this->repositoryClass = $repositoryClass;
+        $this->em = $em;
     }
 
     /**
      * @param User $user
-     * @throws ORMException
+     */
+    public function add(User $user): void
+    {
+        $this->em->persist($user);
+    }
+
+    /**
+     * @param User $user
      */
     public function remove(User $user): void
     {
-        $this->_em->remove($user);
+        $this->em->remove($user);
     }
 
     /**
@@ -43,24 +56,33 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     public function getById(int $id): User
     {
         /** @var User|null $user */
-        $user = $this->find($id);
+        $user = $this->repositoryClass->find($id);
         if ($user === null) {
             throw new DomainRecordNotFoundException('User is not found');
         }
         return $user;
     }
 
+    /**
+     * @param string $email
+     * @return User|null
+     */
     public function findByEmail(string $email): ?User
     {
         /** @var User|null $user */
-        $user =  $this->findOneBy(['email' => $email]);
+        $user =  $this->repositoryClass->findOneBy(['email' => $email]);
         return $user;
     }
 
+    /**
+     * @param string $email
+     * @param string $password
+     * @return User|null
+     */
     public function findByEmailAndPassword(string $email, string $password): ?User
     {
         /** @var User|null $user */
-        $user =  $this->findOneBy(['email' => $email, 'password' => $password]);
+        $user =  $this->repositoryClass->findOneBy(['email' => $email, 'password' => $password]);
         return $user;
     }
 }
