@@ -18,6 +18,7 @@ use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Setup;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
@@ -45,20 +46,17 @@ return function (ContainerBuilder $containerBuilder) {
         EntityManagerInterface::class => function (ContainerInterface $c) {
             $setting = $c->get(SettingsInterface::class);
 
-            $doctrineSettings = $setting->get('doctrine');
+            $doctrineSettings = $setting->get('settings')['doctrine'];
 
-            $cache = $setting->get(Cache::class);
+            $config = Setup::createAnnotationMetadataConfiguration(
+                $doctrineSettings['entity_path'],
+                $doctrineSettings['auto_generate_proxies'],
+                $doctrineSettings['proxy_dir'],
+                $doctrineSettings['cache'],
+                FALSE
+            );
 
-            # doctrine setting
-            $doctrineConfiguration = new Configuration();
-            $doctrineConfiguration->setProxyDir('data/doctrine');
-            $doctrineConfiguration->setQueryCacheImpl($cache);
-            $doctrineConfiguration->setHydrationCacheImpl($cache);
-            $doctrineConfiguration->setResultCacheImpl($cache);
-
-            $em = EntityManager::create($doctrineSettings['connection'], $doctrineConfiguration);
-
-            return $em;
+            return EntityManager::create($doctrineSettings['connection'], $config);
         },
 
         #Repository
