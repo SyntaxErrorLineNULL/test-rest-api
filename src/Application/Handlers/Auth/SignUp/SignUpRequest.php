@@ -23,7 +23,6 @@ class SignUpRequest
      * @var string
      */
     public string $email;
-    /** TODO: validate email and password */
 
     /**
      * @Serializer\Expose()

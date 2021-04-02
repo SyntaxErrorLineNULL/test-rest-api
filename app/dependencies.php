@@ -13,8 +13,6 @@ use App\Domain\Repository\UserRepository;
 use App\Infrastructure\Repository\DoctrineConfirmationToken;
 use App\Infrastructure\Repository\DoctrineUserRepository;
 use DI\ContainerBuilder;
-use Doctrine\Common\Cache\Cache;
-use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -46,7 +44,7 @@ return function (ContainerBuilder $containerBuilder) {
         EntityManagerInterface::class => function (ContainerInterface $c) {
             $setting = $c->get(SettingsInterface::class);
 
-            $doctrineSettings = $setting->get('settings')['doctrine'];
+            $doctrineSettings = $setting->get('doctrine');
 
             $config = Setup::createAnnotationMetadataConfiguration(
                 $doctrineSettings['entity_path'],

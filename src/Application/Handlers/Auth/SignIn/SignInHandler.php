@@ -34,6 +34,6 @@ class SignInHandler implements RequestHandlerInterface
 
         $email = $data->email;
 
-        return new JsonResponse($email);
+        return new JsonResponse($data->email);
     }
 }
