@@ -54,7 +54,7 @@ return function (ContainerBuilder $containerBuilder) {
                 FALSE
             );
 
-            return EntityManager::create($doctrineSettings['connection'], $config);
+            return EntityManager::create($doctrineSettings['doctrine']['connection'], $config);
         },
 
         #Repository
