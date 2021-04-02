@@ -1,11 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use App\Application\Handlers\Auth\SignUp\SignUpHandler;
-use App\Application\Settings\Flusher;
 use App\Application\Settings\SettingsInterface;
-use App\Core\Service\PasswordService;
-use App\Core\Service\RequestData;
 use App\Domain\Entity\ConfirmationToken;
 use App\Domain\Entity\User;
 use App\Domain\Repository\ConfirmationTokenRepository;
@@ -13,6 +9,7 @@ use App\Domain\Repository\UserRepository;
 use App\Infrastructure\Repository\DoctrineConfirmationToken;
 use App\Infrastructure\Repository\DoctrineUserRepository;
 use DI\ContainerBuilder;
+use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -21,7 +18,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
-use Psr\Http\Server\RequestHandlerInterface;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Psr\Log\LoggerInterface;
 
 return function (ContainerBuilder $containerBuilder) {
@@ -41,18 +38,22 @@ return function (ContainerBuilder $containerBuilder) {
         },
 
         # ORM
-        EntityManagerInterface::class => function (ContainerInterface $c) {
+        EntityManager::class => function (ContainerInterface $c) {
             $setting = $c->get(SettingsInterface::class);
 
             $doctrineSettings = $setting->get('doctrine');
 
+            $reader = new AnnotationReader();
+            $driver = new AnnotationDriver($reader, $doctrineSettings['metadata_dirs']);
+
             $config = Setup::createAnnotationMetadataConfiguration(
-                $doctrineSettings['entity_path'],
+                $doctrineSettings['metadata_dirs'],
                 $doctrineSettings['auto_generate_proxies'],
                 $doctrineSettings['proxy_dir'],
                 $doctrineSettings['cache'],
                 FALSE
             );
+            $config->setMetadataDriverImpl($driver);
 
             return EntityManager::create($doctrineSettings['connection'], $config);
         },
@@ -77,16 +78,6 @@ return function (ContainerBuilder $containerBuilder) {
         },
 
         /** TODO: create factory repository */
-
-        # SignUpHandler
-        RequestHandlerInterface::class => function (ContainerInterface $c) {
-            return new SignUpHandler(
-                $c->get(RequestData::class),
-                $c->get(UserRepository::class),
-                $c->get(Flusher::class),
-                $c->get(PasswordService::class),
-            );
-        },
 
     ]);
 

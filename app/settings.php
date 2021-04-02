@@ -21,7 +21,7 @@ return function (ContainerBuilder $containerBuilder) {
                 ],
 
                 'doctrine' => [
-                    'entity_path' => ['../src/Domain/Entity'],
+                    'metadata_dirs' => __DIR__ . '/../src/Domain/Entity',
                     'auto_generate_proxies' => true,
                     'proxy_dir' => __DIR__ . '/../data/cache/proxies',
                     'cache' => null,
