@@ -24,21 +24,18 @@ class SignUpHandler implements RequestHandlerInterface
 {
     private RequestData $data;
     private UserRepository $userRepository;
-    private Flusher $flusher;
     private PasswordService $passwordService;
 
     /**
      * SignUpHandler constructor.
      * @param RequestData $data
      * @param UserRepository $userRepository
-     * @param Flusher $flusher
      * @param PasswordService $passwordService
      */
-    public function __construct(RequestData $data, UserRepository $userRepository, Flusher $flusher, PasswordService $passwordService)
+    public function __construct(RequestData $data, UserRepository $userRepository, PasswordService $passwordService)
     {
         $this->data = $data;
         $this->userRepository = $userRepository;
-        $this->flusher = $flusher;
         $this->passwordService = $passwordService;
     }
 
@@ -56,7 +53,6 @@ class SignUpHandler implements RequestHandlerInterface
 
         $user = new User($requestSchema->email, $requestSchema->name, $requestSchema->password, $this->passwordService);
         $this->userRepository->add($user);
-        $this->flusher->flusher();
 
         return new EmptyResponse(201);
     }

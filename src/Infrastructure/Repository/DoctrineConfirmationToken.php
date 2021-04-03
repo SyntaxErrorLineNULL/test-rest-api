@@ -11,47 +11,35 @@ namespace App\Infrastructure\Repository;
 
 use App\Domain\Entity\ConfirmationToken;
 use App\Domain\Repository\ConfirmationTokenRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\ORMException;
 
-class DoctrineConfirmationToken implements ConfirmationTokenRepository
+class DoctrineConfirmationToken extends EntityRepository implements ConfirmationTokenRepository
 {
-
-    /** @var EntityRepository<ConfirmationToken> */
-    private EntityRepository $entityClass;
-    private EntityManagerInterface $em;
-
-    /**
-     * DoctrineConfirmationToken constructor.
-     * @param EntityRepository<ConfirmationToken> $entityClass
-     * @param EntityManagerInterface $em
-     */
-    public function __construct(EntityRepository $entityClass, EntityManagerInterface $em)
-    {
-        $this->entityClass = $entityClass;
-        $this->em = $em;
-    }
-
     /**
      * @param ConfirmationToken $token
+     * @throws ORMException
      */
     public function add(ConfirmationToken $token): void
     {
-        $this->em->persist($token);
+        $this->_em->persist($token);
+        $this->_em->flush();
     }
 
     /**
      * @param ConfirmationToken $token
+     * @throws ORMException
      */
     public function remove(ConfirmationToken $token): void
     {
-        $this->em->remove($token);
+        $this->_em->remove($token);
+        $this->_em->flush();
     }
 
     public function findByToken(string $token): ?ConfirmationToken
     {
         /** @var ConfirmationToken|null $confirmToken */
-        $confirmToken =  $this->entityClass->findOneBy(['value' => $token]);
+        $confirmToken =  $this->findOneBy(['value' => $token]);
         return $confirmToken;
     }
 }
