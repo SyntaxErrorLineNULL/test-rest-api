@@ -15,7 +15,6 @@ use App\Infrastructure\Repository\DoctrineUserRepository;
 
 /**
  * @ORM\Entity(repositoryClass=DoctrineUserRepository::class)
- * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="user")
  */
 class User

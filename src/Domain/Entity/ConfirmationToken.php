@@ -16,7 +16,6 @@ use App\Infrastructure\Repository\DoctrineConfirmationToken;
 
 /**
  * @ORM\Entity(repositoryClass=DoctrineConfirmationToken::class)
- * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="confirmation_token")
  */
 class ConfirmationToken

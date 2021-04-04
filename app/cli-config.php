@@ -10,7 +10,6 @@ use Dotenv\Dotenv;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
-use Monolog\Logger;
 
 require_once (__DIR__ . '../vendor/autoload.php');
 
