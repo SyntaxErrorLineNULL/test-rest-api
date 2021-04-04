@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Entity;
+namespace App\Core\Domain\Entity;
 
 
 use DateTimeImmutable;
