@@ -7,3 +7,6 @@ composer-install:
 	docker-compose -f docker-compose.yml run --rm php-cli composer install
 build-api:
 	docker-compose -f docker-compose.yml build
+init-db:
+	docker-compose -f docker-compose.yml run --rm php-cli vendor/bin/doctrine orm:schema-tool:drop --force && \
+	docker-compose -f docker-compose.yml run --rm php-cli vendor/bin/doctrine orm:schema-tool:create
