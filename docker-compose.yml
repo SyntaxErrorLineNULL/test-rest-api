@@ -5,17 +5,15 @@ volumes:
     driver: local
 
 services:
-  api:
-    container_name: api
-    image: php:7.4-alpine
-    working_dir: /var/www
-    command: php -S 0.0.0.0:8080 -t public
-    environment:
-      docker: "true"
+  nginx:
+    container_name: api-nginx
+    build:
+      context: docker
+      dockerfile: nginx/Dockerfile
     ports:
-      - 8080:8080
+      - 8080:80
     volumes:
-      - .:/var/www
+      - ./:/var/www
       - logs:/var/www/logs
   api-postgres:
     container_name: api_database
