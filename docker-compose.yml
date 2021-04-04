@@ -6,15 +6,26 @@ volumes:
 
 services:
   nginx:
-    container_name: api-nginx
+    container_name: nginx
     build:
       context: docker
       dockerfile: nginx/Dockerfile
     ports:
       - 8080:80
     volumes:
-      - ./:/var/www
+      - ./:/app
       - logs:/var/www/logs
+    depends_on:
+      - api-postgres
+  php-fpm:
+    container_name: php-fpm
+    build:
+      context: docker
+      dockerfile: php-fpm/Dockerfile
+    depends_on:
+      - api-
+    volumes:
+      - ./:/app
   api-postgres:
     container_name: api_database
     image: postgres:13.1-alpine
