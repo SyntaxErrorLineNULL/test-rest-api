@@ -1,5 +1,5 @@
 init: down up
 up:
-	docker-compose up -d
+	docker-compose -f docker-compose.yml up -d
 down:
-	docker-compose down --remove-orphans
+	docker-compose -f docker-compose.yml down --remove-orphans
