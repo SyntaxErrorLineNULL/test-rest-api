@@ -24,7 +24,7 @@ return [
             'connection' => [
                 'driver' => 'pdo_pgsql',
                 'host' => 'db',
-                'dbname' => 'rest',
+                'dbname' => 'app',
                 'user' => 'root',
                 'password' => '12345',
                 'charset' => 'utf-8'
