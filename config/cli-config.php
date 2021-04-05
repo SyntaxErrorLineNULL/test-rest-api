@@ -6,18 +6,20 @@
 
 declare(strict_types=1);
 
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\FilesystemCache;
 use Dotenv\Dotenv;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 
-require_once (__DIR__ . '../vendor/autoload.php');
+require __DIR__ . './../vendor/autoload.php';
 
-$dotEnv = Dotenv::createImmutable(__DIR__ . '../');
+$dotEnv = Dotenv::createImmutable(__DIR__ . '/..');
 $dotEnv->load();
 
-$setting = require_once (__DIR__ . '/autoload/doctrine.php');
-$doctrineSettings = $setting['settings']['doctrine'];
+$settings = require 'settings.php';
+$doctrineSettings = $settings['settings']['doctrine'];
 
 $config= Setup::createAnnotationMetadataConfiguration(
     $doctrineSettings['entity_path'],

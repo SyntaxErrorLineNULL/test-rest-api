@@ -10,7 +10,7 @@ services:
     volumes:
       - ./:/app
     depends_on:
-      - api-postgres
+      - db
   php-fpm:
     container_name: php-fpm
     build:
@@ -19,7 +19,7 @@ services:
       cache_from:
         - ${REGISTRY:-localhost}/api-php-fpm
     depends_on:
-      - api-postgres
+      - db
     volumes:
       - ./:/app
     working_dir: /app
@@ -31,12 +31,12 @@ services:
       cache_from:
         - ${REGISTRY:-localhost}/api-php-cli
     depends_on:
-      - api-postgres
+      - db
     volumes:
       - ./:/app
     working_dir: /app
     tty: true
-  api-postgres:
+  db:
     container_name: api-database
     image: postgres:13.1-alpine
     restart: always
@@ -46,3 +46,5 @@ services:
       - POSTGRES_DB=${DB_NAME}
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "54322:5432"

@@ -2,16 +2,13 @@
 declare(strict_types=1);
 
 use App\Application\Settings\SettingsInterface;
-use App\Domain\Entity\User;
-use App\Domain\Repository\UserRepository;
 use DI\ContainerBuilder;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\Setup;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Log\LoggerInterface;
 
 return function (ContainerBuilder $containerBuilder) {
@@ -29,13 +26,18 @@ return function (ContainerBuilder $containerBuilder) {
 
             return $logger;
         },
+        EntityManager::class => function (ContainerInterface $c) {
+            $settings = $c->get('settings')['doctrine'];
 
-        RequestHandlerInterface::class => function (ContainerInterface $c) {
-            return new \App\Application\Handlers\Auth\SignUp\SignUpHandler(
-                $c->get(\App\Core\Service\RequestData::class),
-                $c->get(UserRepository::class),
-                $c->get(\App\Core\Service\PasswordService::class)
+            $config = Setup::createAnnotationMetadataConfiguration(
+                $settings['entity_path'],
+                $settings['auto_generate_proxies'],
+                $settings['proxy_dir'],
+                $settings['cache'],
+                false
             );
+
+            return EntityManager::create($settings['connection'], $config);
         }
     ]);
 
