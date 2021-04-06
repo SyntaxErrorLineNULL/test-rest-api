@@ -6,13 +6,27 @@
 
 declare(strict_types=1);
 
-use DI\Container;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\ORM\Tools\Setup;
+use Dotenv\Dotenv;
 
-/** @var Container $container */
-$container = require_once __DIR__ . '/../app/container.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-$entityManager = $container->get(EntityManagerInterface::class);
+$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv->load();
+
+$settings = require __DIR__ . '/../app/settings.php';
+$doctrineSettings = $settings['settings']['doctrine'];
+
+$config = Setup::createAnnotationMetadataConfiguration(
+    $doctrineSettings['entity_path'],
+    $doctrineSettings['auto_generate_proxies'],
+    $doctrineSettings['proxy_dir'],
+    $doctrineSettings['cache'],
+    false
+);
+
+$entityManager = EntityManager::create($doctrineSettings['connection'], $config);
 
 return ConsoleRunner::createHelperSet($entityManager);
