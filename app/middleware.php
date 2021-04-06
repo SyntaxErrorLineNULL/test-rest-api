@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-use App\Application\Middleware\SessionMiddleware;
-use Slim\App;
 
-return function (App $app) {
-    $app->add(SessionMiddleware::class);
-};
+use App\Core\Http\Middleware\SessionMiddleware;
+
+return [
+    SessionMiddleware::class
+];
