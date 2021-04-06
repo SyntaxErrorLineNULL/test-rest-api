@@ -9,9 +9,7 @@ declare(strict_types=1);
 namespace App\Core\Service;
 
 use Pimple\Container as PimpleContainer;
-use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
 
 class Container extends PimpleContainer implements ContainerInterface
 {
