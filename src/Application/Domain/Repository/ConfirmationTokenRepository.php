@@ -6,10 +6,10 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Domain\Repository;
+namespace App\Application\Domain\Repository;
 
 
-use App\Domain\Entity\ConfirmationToken;
+use App\Application\Domain\Entities\ConfirmationToken;
 
 interface ConfirmationTokenRepository
 {

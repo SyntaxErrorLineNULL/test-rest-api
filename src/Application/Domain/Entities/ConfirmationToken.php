@@ -6,13 +6,13 @@
 
 declare(strict_types=1);
 
-namespace App\Entities;
+namespace App\Application\Domain\Entities;
 
 
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use DomainException;
-use App\Infrastructure\Repository\DoctrineConfirmationToken;
+use App\Application\Infrastructure\Repository\DoctrineConfirmationToken;
 
 /**
  * @ORM\Entity(repositoryClass=DoctrineConfirmationToken::class)

@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Handlers\Auth\SignIn;
+namespace App\Application\Actions\Auth\SignUp;
 
 use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\AccessorOrder;
@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation\AccessorOrder;
  * @AccessorOrder("custom", custom = {"email","name","password"})
  * @Serializer\ExclusionPolicy("all")
  */
-class SignInRequest
+class SignUpRequest
 {
     /**
      * @Serializer\Expose()

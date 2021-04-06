@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Handlers\Auth\SignUp;
+namespace App\Application\Actions\Auth\SignUp;
 
 
 use App\Application\Entities\User;

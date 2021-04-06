@@ -6,12 +6,12 @@
 
 declare(strict_types=1);
 
-namespace App\Entities;
+namespace App\Application\Domain\Entities;
 
 use App\Core\Service\PasswordService;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use App\Infrastructure\Repository\DoctrineUserRepository;
+use App\Application\Infrastructure\Repository\DoctrineUserRepository;
 
 /**
  * @ORM\Entity(repositoryClass=DoctrineUserRepository::class)
