@@ -8,8 +8,7 @@ declare(strict_types=1);
 
 namespace App\Core\Domain\Repository;
 
-
-use App\Domain\Entity\User;
+use App\Application\Entities\User;
 
 interface UserRepository
 {

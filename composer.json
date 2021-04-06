@@ -40,7 +40,8 @@
         "slim/slim": "^4.7",
         "symfony/serializer": "^5.2",
         "vlucas/phpdotenv": "^5.3",
-        "webmozart/assert": "^1.10"
+        "webmozart/assert": "^1.10",
+      "ext-pdo": "*"
     },
     "require-dev": {
         "jangregor/phpstan-prophecy": "^0.8.1",

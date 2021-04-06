@@ -9,12 +9,10 @@ declare(strict_types=1);
 namespace App\Application\Handlers\Auth\SignUp;
 
 
-use App\Application\Settings\Flusher;
+use App\Application\Entities\User;
+use App\Core\Domain\Repository\UserRepository;
 use App\Core\Service\PasswordService;
 use App\Core\Service\RequestData;
-use App\Domain\Entity\User;
-use App\Domain\Repository\UserRepository;
-use App\Infrastructure\Repository\DoctrineUserRepository;
 use Laminas\Diactoros\Response\EmptyResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

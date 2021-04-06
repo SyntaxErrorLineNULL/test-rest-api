@@ -1,21 +1,25 @@
 <?php
 declare(strict_types=1);
 
-use App\Application\Settings\SettingsInterface;
+use DI\Container;
 use DI\ContainerBuilder;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Setup;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Monolog\Processor\UidProcessor;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Slim\App;
+use Slim\Factory\AppFactory;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
-        LoggerInterface::class => function (ContainerInterface $c) {
-            $settings = $c->get(SettingsInterface::class);
+        App::class => function(Container $container) {
+            AppFactory::setContainer($container);
+            return AppFactory::create();
+        },
 
+        LoggerInterface::class => function (ContainerInterface $c) {
+            $settings = $c->get('settings');
             $loggerSettings = $settings->get('logger');
             $logger = new Logger($loggerSettings['name']);
 
@@ -26,18 +30,11 @@ return function (ContainerBuilder $containerBuilder) {
 
             return $logger;
         },
-        EntityManager::class => function (ContainerInterface $c) {
-            $settings = $c->get('settings')['doctrine'];
 
-            $config = Setup::createAnnotationMetadataConfiguration(
-                $settings['entity_path'],
-                $settings['auto_generate_proxies'],
-                $settings['proxy_dir'],
-                $settings['cache'],
-                false
+        \Psr\Http\Message\ResponseInterface::class => function (Container $c) {
+            return new \App\Application\Handlers\Auth\SignIn\SignInHandler(
+                $c->get(\App\Core\Service\RequestData::class)
             );
-
-            return EntityManager::create($settings['connection'], $config);
         }
     ]);
 
