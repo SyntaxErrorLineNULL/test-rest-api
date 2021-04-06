@@ -31,8 +31,19 @@ $dependencyFactory = require __DIR__ . '/../app/dependencies.php';
 $dependencyFactory($container);
 
 /**
- * // Register middleware
+ * Register middleware
  */
 $middlewares = require __DIR__ . '/../app/middleware.php';
-$middlewares($container);
+$app->add($middlewares);
 
+/**
+ * Register route factory
+ */
+$routeFactory = require __DIR__ . '/../app/routes.php';
+$routeFactory($app);
+
+/** TODO create ErrorAction */
+
+
+$app->addRoutingMiddleware();
+$app->run();
