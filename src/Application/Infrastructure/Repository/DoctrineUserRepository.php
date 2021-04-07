@@ -18,7 +18,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ObjectRepository;
 
-class DoctrineUserRepository implements UserRepository
+final class DoctrineUserRepository implements UserRepository
 {
     private EntityManager $em;
     /** @var ObjectRepository|EntityRepository<User> */

@@ -15,7 +15,7 @@ return [
         ],
 
         'doctrine' => [
-            'metadata_dirs' => [__DIR__ . '/../src/Application/Entities'],
+            'metadata_dirs' => [__DIR__ . '/../src/Application/Domain/Entities'],
             'auto_generate_proxies' => true,
             'cache' => null,
             'proxy_dir' => __DIR__ . '/../data/cache/proxies',

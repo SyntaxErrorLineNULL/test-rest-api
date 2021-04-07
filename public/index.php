@@ -1,11 +1,13 @@
 <?php
 declare(strict_types=1);
 
-use App\Core\Http\Handler\RequestHandler;
+# https://github.com/akrabat/slim4-pimple/blob/master/public/index.php - this pimple example
+
+use App\Application\ResponseEmitter\ResponseEmitter;
 use App\Core\Service\Container;
-use Nyholm\Psr7\Factory\Psr17Factory;
-use Nyholm\Psr7Server\ServerRequestCreator;
 use Slim\App;
+use Slim\Factory\AppFactory;
+use Slim\Factory\ServerRequestCreatorFactory;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -16,46 +18,31 @@ $setting = require __DIR__ . '/../app/settings.php';
  */
 $container = new Container($setting);
 
-/**
- * Helper class to create PSR-7 server request
- */
-$psrFactory = new Psr17Factory();
+// Instantiate the app
+$app = AppFactory::create(null, $container);
+$callableResolver = $app->getCallableResolver();
 
-/**
- * Init application
- */
-$app = new App($psrFactory, $container);
-/**
- *
- */
-$app->getRouteCollector()->setDefaultInvocationStrategy(new RequestHandler());
+// Set up dependencies
+$dependencies = require __DIR__ . '/../app/dependencies.php';
+$dependencies($container);
 
-/**
- * Set up dependencies
- */
-$dependencyFactory = require __DIR__ . '/../app/dependencies.php';
-$dependencyFactory($container);
+// Register middleware
+$middleware = require __DIR__ . '/../app/middleware.php';
+#$middleware($app);
 
-/**
- * Register middleware
- */
-$middlewares = require __DIR__ . '/../app/middleware.php';
+// Register routes
+$routes = require __DIR__ . '/../app/routes.php';
+$routes($app);
+
+// Create Request object from globals
+$serverRequestCreator = ServerRequestCreatorFactory::create();
+$request = $serverRequestCreator->createServerRequestFromGlobals();
 
 
-/**
- * Register route factory
- */
-$routeFactory = require __DIR__ . '/../app/routes.php';
-$routeFactory($app);
-
-/** TODO create ErrorAction */
-
-$requestCreator = new ServerRequestCreator(
-    $psrFactory, # ServerRequestFactory
-    $psrFactory, # UriFactory
-    $psrFactory, # UploadedFileFactory
-    $psrFactory  # StreamFactory
-);
-
+// Add Routing Middleware
 $app->addRoutingMiddleware();
-$app->run($requestCreator->fromGlobals());
+
+// Run App & Emit Response
+$response = $app->handle($request);
+$responseEmitter = new ResponseEmitter();
+$responseEmitter->emit($response);

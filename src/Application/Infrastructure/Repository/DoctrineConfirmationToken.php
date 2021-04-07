@@ -16,9 +16,10 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ObjectRepository;
 
-class DoctrineConfirmationToken implements ConfirmationTokenRepository
+final class DoctrineConfirmationToken implements ConfirmationTokenRepository
 {
     private EntityManager $em;
+
     /** @var ObjectRepository|EntityRepository<ConfirmationToken> */
     private ObjectRepository $entity;
 
