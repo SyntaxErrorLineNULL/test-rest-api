@@ -8,11 +8,12 @@ declare(strict_types=1);
 
 namespace App\Core\Service;
 
+use App\Application\Settings\PasswordServiceInterface;
 use Webmozart\Assert\Assert;
 
 use RuntimeException;
 
-class PasswordService
+class PasswordService implements PasswordServiceInterface
 {
     private int $value;
 
@@ -31,8 +32,6 @@ class PasswordService
      */
     public function hash(string $password): string
     {
-        /** @var string|null|false $hash */
-        $hash = '';
         Assert::notEmpty($password);
 
         $hash = password_hash($password, PASSWORD_ARGON2ID, [
