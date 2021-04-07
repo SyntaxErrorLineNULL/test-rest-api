@@ -4,22 +4,23 @@ declare(strict_types=1);
 # https://github.com/akrabat/slim4-pimple/blob/master/public/index.php - this pimple example
 
 use App\Application\ResponseEmitter\ResponseEmitter;
-use App\Core\Service\Container;
+use Pimple\Container;
+use Pimple\Psr11\Container as Psr11Container;
 use Slim\App;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$setting = require __DIR__ . '/../app/settings.php';
+$settings = require __DIR__ . '/../app/settings.php';
 
 /**
  * Small container
  */
-$container = new Container($setting);
+$container = new Container(['settings' => $settings]);
 
 // Instantiate the app
-$app = AppFactory::create(null, $container);
+$app = AppFactory::create(null, new Psr11Container($container));
 $callableResolver = $app->getCallableResolver();
 
 // Set up dependencies

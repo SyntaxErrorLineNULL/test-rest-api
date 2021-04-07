@@ -8,7 +8,7 @@ use App\Application\Infrastructure\Repository\DoctrineConfirmationToken;
 use App\Application\Infrastructure\Repository\DoctrineUserRepository;
 use App\Application\Settings\PasswordServiceInterface;
 use App\Application\Settings\SettingsInterface;
-use App\Core\Service\Container;
+use Pimple\Container;
 use App\Core\Service\PasswordService;
 use App\Core\Service\RequestData;
 use DI\ContainerBuilder;
@@ -32,8 +32,8 @@ return static function (Container $container) : void
     };
 
     $container[LoggerInterface::class] = static function (Container $container) {
-        $settings = $container->get('settings');
-        $loggerSettings = $settings->get('logger');
+        $settings = $container->offsetGet('settings');
+        $loggerSettings = $settings->offsetGet('logger');
         $logger = new Logger($loggerSettings['name']);
 
         $processor = new UidProcessor();
@@ -45,7 +45,7 @@ return static function (Container $container) : void
     };
 
     $container[EntityManager::class] = static function (Container $container): EntityManager {
-        $settings = $container->get('settings')['doctrine'];
+        $settings = $container->offsetGet('settings')['doctrine'];
 
         $config = Setup::createAnnotationMetadataConfiguration(
             $settings['metadata_dirs'],
@@ -59,12 +59,12 @@ return static function (Container $container) : void
     };
 
     $container[UserRepository::class] = static function (Container $container): DoctrineUserRepository {
-        $em = $container->get(EntityManager::class);
+        $em = $container->offsetGet(EntityManager::class);
         return new DoctrineUserRepository($em);
     };
 
     $container[ConfirmationTokenRepository::class] = static function (Container $container): DoctrineConfirmationToken {
-        $em = $container->get(EntityManager::class);
+        $em = $container->offsetGet(EntityManager::class);
         return new DoctrineConfirmationToken($em);
     };
 
@@ -78,8 +78,8 @@ return static function (Container $container) : void
 
     $container[SignUpHandler::class] = function (Container $container): RequestHandlerInterface {
         return new SignUpHandler(
-            $container->get(PasswordService::class),
-            $container->get(UserRepository::class)
+            $container->offsetGet(PasswordService::class),
+            $container->offsetGet(UserRepository::class)
         );
     };
 };
