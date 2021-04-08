@@ -11,7 +11,7 @@ namespace App\Application\Infrastructure\Repository;
 
 use App\Application\Domain\DomainException\DomainRecordNotFoundException;
 use App\Application\Domain\Entities\User;
-use App\Application\Domain\Entities\UserRepository;
+use App\Application\Domain\Repository\UserRepository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;

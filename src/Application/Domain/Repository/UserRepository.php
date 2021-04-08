@@ -6,8 +6,10 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Domain\Entities;
+namespace App\Application\Domain\Repository;
 
+
+use App\Application\Domain\Entities\User;
 
 interface UserRepository
 {
