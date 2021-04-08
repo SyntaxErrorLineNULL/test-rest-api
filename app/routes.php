@@ -19,16 +19,6 @@ return function (App $app) {
         return $response;
     });
 
-    $app->post('/data', function (Request $request, Response $response) {
-        $parameters = json_decode((array)$request->getParsedBody(), TRUE);
-        $email = $parameters['email'];
-
-        $response->getBody()->write("Hello $email!");
-        return $response;
-    });
-
-
-
     $app->post('/name', function (Request $request, Response $response, $args): Response {
         $data = $request->getBody()->getContents();
 
@@ -43,9 +33,5 @@ return function (App $app) {
     $app->group('/users', function (Group $group) {
         $group->get('', ListUsersAction::class);
         $group->get('/{id}', ViewUserAction::class);
-    });
-
-    $app->group('/sign_id', function (Group $group) {
-        $group->post('/data', \App\Application\Handlers\SignIn\SignInHandler::class);
     });
 };
