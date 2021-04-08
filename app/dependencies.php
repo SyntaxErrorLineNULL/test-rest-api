@@ -1,16 +1,12 @@
 <?php
 declare(strict_types=1);
 
-use App\Application\Domain\Entities\User;
 use App\Application\Domain\Repository\UserRepository;
 use DI\ContainerBuilder;
-use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
-use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
 use Doctrine\ORM\Tools\Setup;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -47,10 +43,5 @@ return function (ContainerBuilder $containerBuilder) {
                 $settings['connection'], $config
             );
         },
-
-        UserRepository::class => function (ContainerInterface $container) {
-            return $container->get(EntityManagerInterface::class)->getRepository(\App\Application\Domain\Entities\User::class);
-        },
-
     ]);
 };

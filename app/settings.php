@@ -29,7 +29,7 @@ return function (ContainerBuilder $containerBuilder) {
                 'charset' => 'utf-8'
             ],
             'metadata_dirs' => [
-                __DIR__ . '/../src/Domain/Entities'
+                __DIR__ . '/../src/Application/Domain/Entities/'
             ],
         ],
     ]);

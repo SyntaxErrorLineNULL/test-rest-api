@@ -12,28 +12,12 @@ namespace App\Application\Infrastructure\Repository;
 use App\Application\Domain\DomainException\DomainRecordNotFoundException;
 use App\Application\Domain\Entities\User;
 use App\Application\Domain\Repository\UserRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use Doctrine\Persistence\ObjectRepository;
 
-class DoctrineUserRepository implements UserRepository
+class DoctrineUserRepository extends EntityRepository implements UserRepository
 {
-    private EntityManagerInterface $_em;
-    /** @var ObjectRepository|EntityRepository<User> */
-    private ObjectRepository $entity;
-
-    /**
-     * DoctrineUserRepository constructor.
-     * @param EntityManagerInterface $_em
-     */
-    public function __construct(EntityManagerInterface $_em)
-    {
-        $this->_em = $_em;
-        $this->entity = $_em->getRepository(User::class);
-    }
-
     /**
      * @param User $user
      * @throws ORMException
