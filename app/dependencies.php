@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Application\Domain\Entities\User;
 use DI\ContainerBuilder;
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\FilesystemCache;
@@ -34,7 +35,7 @@ return function (ContainerBuilder $containerBuilder) {
 
             $config = Setup::createAnnotationMetadataConfiguration(
                 $settings['metadata_dirs'],
-                $settings['dev_mode'],
+                $settings['auto_generate_proxies'],
                 $settings['proxy_dir'],
                 $settings['cache_dir'] ? new FilesystemCache($settings['cache_dir']) : new ArrayCache(),
                 false
@@ -45,6 +46,8 @@ return function (ContainerBuilder $containerBuilder) {
             return EntityManager::create(
                 $settings['connection'], $config
             );
-        }
+        },
+
+
     ]);
 };
