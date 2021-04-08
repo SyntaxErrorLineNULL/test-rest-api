@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use App\Application\Domain\Entities\User;
+use App\Application\Domain\Repository\UserRepository;
 use DI\ContainerBuilder;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Cache\ArrayCache;
@@ -35,9 +36,6 @@ return function (ContainerBuilder $containerBuilder) {
         EntityManagerInterface::class => function (ContainerInterface $container): EntityManager {
             $settings = $container->get('doctrine');
 
-            $reader = new AnnotationReader();
-            $driver = new AnnotationDriver($reader, $settings['metadata_dirs']);
-
             $config = Setup::createAnnotationMetadataConfiguration(
                 $settings['metadata_dirs'],
                 $settings['auto_generate_proxies'],
@@ -50,8 +48,9 @@ return function (ContainerBuilder $containerBuilder) {
             );
         },
 
-        \App\Application\Domain\Repository\UserRepository::class => function (ContainerInterface $container) {
+        UserRepository::class => function (ContainerInterface $container) {
             return $container->get(EntityManagerInterface::class)->getRepository(\App\Application\Domain\Entities\User::class);
         },
+
     ]);
 };
