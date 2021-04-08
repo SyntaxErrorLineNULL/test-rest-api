@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Domain\DomainException;
+namespace App\Application\Domain\DomainException;
 
 class DomainRecordNotFoundException extends DomainException
 {
