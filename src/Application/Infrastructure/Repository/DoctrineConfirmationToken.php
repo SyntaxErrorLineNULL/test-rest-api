@@ -11,7 +11,7 @@ namespace App\Application\Infrastructure\Repository;
 
 use App\Application\Domain\Repository\ConfirmationTokenRepository;
 use Doctrine\ORM\EntityRepository;
-use App\Application\Domain\Entities\ConfirmationToken;
+use App\Application\Domain\Entity\ConfirmationToken;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 

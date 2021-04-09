@@ -6,12 +6,11 @@ use Monolog\Logger;
 
 return function (ContainerBuilder $containerBuilder) {
 
-    // Global Settings Object
     $containerBuilder->addDefinitions([
         'displayErrorDetails' => true, // Should be set to false in production
         'logger' => [
-            'name' => 'slim-app',
-            'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
+            'name' => 'slim-config',
+            'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/config.log',
             'level' => Logger::DEBUG,
         ],
 
@@ -23,13 +22,13 @@ return function (ContainerBuilder $containerBuilder) {
             'connection' => [
                 'driver' => 'pdo_pgsql',
                 'host' => '127.0.0.1',
-                'dbname' => 'app',
+                'dbname' => 'config',
                 'user' => 'postgres',
                 'password' => '12345',
                 'charset' => 'utf-8'
             ],
             'metadata_dirs' => [
-                __DIR__ . '/../src/Application/Domain/Entities/'
+                __DIR__ . '/../src/Application/Domain/Entity/'
             ],
         ],
     ]);

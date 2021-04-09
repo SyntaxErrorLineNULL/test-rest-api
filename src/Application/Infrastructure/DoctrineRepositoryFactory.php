@@ -16,7 +16,7 @@ class DoctrineRepositoryFactory
     public function __invoke(EntityManagerInterface $em, RequestedEntry $entry): \Doctrine\Persistence\ObjectRepository
     {
         // Entities MUST be defined in the same namespace as repositories.
-        $entityClass = str_replace(["\\Repository\\", "Repository"], ["\\Entities\\", ""], $entry->getName());
+        $entityClass = str_replace(["\\Repository\\", "Repository"], ["\\Entity\\", ""], $entry->getName());
 
         return $em->getRepository($entityClass);
     }

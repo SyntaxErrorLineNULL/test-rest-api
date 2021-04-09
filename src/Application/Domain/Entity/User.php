@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Domain\Entities;
+namespace App\Application\Domain\Entity;
 
 
 use App\Application\Domain\Service\PasswordService;
