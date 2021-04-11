@@ -22,7 +22,7 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^7.4",
         "doctrine/migrations": "^3.1",
         "doctrine/orm": "^2.8",
         "firebase/php-jwt": "^5.2",
@@ -46,10 +46,9 @@
       "ext-json": "*"
     },
     "require-dev": {
-        "doctrine/data-fixtures": "^1.4",
         "jangregor/phpstan-prophecy": "^0.8.1",
         "phpstan/extension-installer": "^1.1.0",
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^9.2"
     },
     "config": {
         "process-timeout": 0,

@@ -18,7 +18,6 @@ return function (ContainerBuilder $containerBuilder) {
                 'dev_mode' => true,
                 'cache_dir' => __DIR__ . '/../../var/cache/doctrine/cache',
                 'proxy_dir' => __DIR__ . '/../../var/cache/doctrine/proxy',
-                'cache' => null,
                 'useSimpleAnnotationReader' => false,
 
                 // you should add any other path containing annotated entity classes
