@@ -42,9 +42,12 @@
         "symfony/serializer": "^5.2",
         "vlucas/phpdotenv": "^5.3",
         "webmozart/assert": "^1.10",
+        "symfony/console": "^5.0",
+        "laminas/laminas-config-aggregator": "^1.2",
       "ext-json": "*"
     },
     "require-dev": {
+        "doctrine/data-fixtures": "^1.4",
         "jangregor/phpstan-prophecy": "^0.8.1",
         "phpstan/extension-installer": "^1.1.0",
         "phpunit/phpunit": "^8.5"
