@@ -13,8 +13,8 @@ services:
             - ./:/app
 
     php-fpm:
-        container_name: test_php
-        image: ${REGISTRY:-localhost}/test-api-php-fpm
+        container_name: seln_php
+        image: ${REGISTRY:-localhost}/seln-api-php-fpm
         build:
             context: docker
             dockerfile: php-fpm/Dockerfile
@@ -27,9 +27,9 @@ services:
             - ./:/app
 
         working_dir: /app
-    api-php-cli:
-        container_name: api-php-cli
-        image: ${REGISTRY}/api-php-cli:${IMAGE_TAG}
+    php-cli:
+        container_name: seln_php-cli
+        image: ${REGISTRY:-localhost}/seln-api-php-cli
         build:
             context: docker
             dockerfile: php-cli/Dockerfile
