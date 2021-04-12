@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace App\Application\Infrastructure\Repository;
 
 
+use App\Application\Domain\DomainException\DomainRecordNotFoundException;
 use App\Application\Domain\Entity\User;
 use App\Application\Domain\Repository\UserRepository;
 use Doctrine\ORM\EntityRepository;
