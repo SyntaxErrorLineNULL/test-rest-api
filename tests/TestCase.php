@@ -28,7 +28,7 @@ class TestCase extends PHPUnit_TestCase
         // Container intentionally not compiled for tests.
 
         // Set up settings
-        $settings = require __DIR__ . '/../config/settings.php';
+        $settings = require __DIR__ . '/../config/data.php';
         $settings($containerBuilder);
 
         // Set up dependencies
