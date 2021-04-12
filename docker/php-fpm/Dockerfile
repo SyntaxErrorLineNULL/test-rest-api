@@ -1,6 +1,5 @@
 FROM php:7.4-fpm-alpine
 
-#install PG
 RUN apk add --no-cache postgresql-dev fcgi \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo_pgsql
