@@ -1,6 +1,15 @@
 version: '3.7'
 
 services:
+    api:
+        image: nginx
+        volumes:
+            - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+            - ./:/app
+        restart: always
+        depends_on:
+            - php-fpm
+
     php-fpm:
         container_name: seln_php
         command: php -S 0.0.0.0:8080 -t public
