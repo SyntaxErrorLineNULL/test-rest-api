@@ -36,7 +36,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     * @inheritDoc
+     * @param int $id
+     * @return \App\Application\Domain\Entity\User
      */
     public function getById(int $id): User
     {
@@ -49,18 +50,25 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     * @inheritDoc
+     * @param string $email
+     * @return \App\Application\Domain\Entity\User|null
      */
     public function findByEmail(string $email): ?User
     {
-        // TODO: Implement findByEmail() method.
+        /** @var User|null $user */
+        $user =  $this->findOneBy(['email' => $email]);
+        return $user;
     }
 
     /**
-     * @inheritDoc
+     * @param string $email
+     * @param string $password
+     * @return \App\Application\Domain\Entity\User|null
      */
     public function findByEmailAndPassword(string $email, string $password): ?User
     {
-        // TODO: Implement findByEmailAndPassword() method.
+        /** @var User|null $user */
+        $user =  $this->findOneBy(['email' => $email, 'password' => $password]);
+        return $user;
     }
 }
