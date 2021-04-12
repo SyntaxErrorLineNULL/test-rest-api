@@ -14,7 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="users")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="user")
  */
 class User
 {
