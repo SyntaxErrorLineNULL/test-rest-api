@@ -25,7 +25,7 @@ return [
             'useSimpleAnnotationReader' => false,
 
             // you should add any other path containing annotated entity classes
-            'metadata_dirs' => [__DIR__ . '/../src/Application/Domain/Entity'],
+            'metadata_dirs' => [__DIR__ . '/../../src/Application/Domain/Entity'],
 
             'connection' => [
                 'driver' => 'pdo_pgsql',
