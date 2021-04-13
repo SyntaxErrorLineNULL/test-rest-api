@@ -30,6 +30,6 @@ class SignUpHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        return new EmptyResponse(200);
+        return new EmptyResponse(201);
     }
 }
