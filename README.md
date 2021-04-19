@@ -11,7 +11,10 @@ This skeleton application was built for Composer. This makes setting up a new Sl
 Run this command from the directory in which you want to install your new Slim Framework application.
 
 ```bash
-composer create-project slim/slim-skeleton [my-app-name]
+git clone [link-my-app]
+cd [my-app-name]
+composer install
+composer update
 ```
 
 Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
@@ -29,9 +32,9 @@ composer start
 Or you can use `docker-compose` to run the app with `docker`, so you can run these commands:
 ```bash
 cd [my-app-name]
-docker-compose up -d
+make init
 ```
-After that, open `http://localhost:8080` in your browser.
+After that, open `http://localhost:8080/api/*` in your browser.
 
 Run this command in the application directory to run the test suite
 
@@ -40,3 +43,11 @@ composer test
 ```
 
 That's it! Now go build something cool.
+
+MakeFile list 
+```bash
+make init [initialization-app]
+make up
+make down [stop-app]
+
+```
