@@ -42,6 +42,6 @@ class SignUpHandler implements RequestHandlerInterface
         /** @var SignUpSchema $requestSchema */
         $requestSchema = $this->schema->deserializeBySchema($request, SignUpSchema::class);
 
-        return new JsonResponse($requestSchema->password);
+        return new JsonResponse($requestSchema->name);
     }
 }
