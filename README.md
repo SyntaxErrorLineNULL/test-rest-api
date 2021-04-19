@@ -49,5 +49,9 @@ MakeFile list
 make init [initialization-app]
 make up
 make down [stop-app]
-
+make restart [restart-app]
+make build [docker-compose build app components]
+[install and update composer package]
+make api-composer-install
+make api-composer-update
 ```
