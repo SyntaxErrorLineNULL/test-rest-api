@@ -5,20 +5,17 @@
         "microframework",
         "rest",
         "router",
-        "psr7"
+        "psr7",
+        "doctrine",
+        "docker"
     ],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "homepage": "https://github.com/SyntaxErrorLineNULL/test-rest-api",
     "license": "MIT",
     "authors": [
         {
-            "name": "Josh Lockhart",
-            "email": "info@joshlockhart.com",
-            "homepage": "http://www.joshlockhart.com/"
-        },
-        {
-            "name": "Pierre Berube",
-            "email": "pierre@lgse.com",
-            "homepage": "http://www.lgse.com/"
+            "name": "SyntaxErrorLineNULL",
+            "email": "cyberorange16@gmail.com",
+            "homepage": "https://github.com/SyntaxErrorLineNULL/"
         }
     ],
     "require": {
