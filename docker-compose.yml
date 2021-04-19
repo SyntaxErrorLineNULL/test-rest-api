@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+    api:
+        image: nginx
+        volumes:
+            - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+            - ./:/app
+        restart: always
+        depends_on:
+            - php-fpm
+
+    php-fpm:
+        container_name: seln_php
+        command: php -S 0.0.0.0:8080 -t public
+        build:
+            context: docker
+            dockerfile: php-fpm/Dockerfile
+        environment:
+            DB_HOST: api-postgres
+            DB_USER: app
+            DB_PASSWORD: secret
+            DB_NAME: app
+        ports:
+            - 8080:8080
+        volumes:
+            - ./:/app
+        working_dir: /app
+
+    php-cli:
+        container_name: seln_php-cli
+        build:
+            context: docker
+            dockerfile: php-cli/Dockerfile
+        environment:
+            DB_HOST: api-postgres
+            DB_USER: app
+            DB_PASSWORD: secret
+            DB_NAME: app
+        volumes:
+            - ./:/app
+
+    api-postgres:
+        image: postgres:13.1-alpine
+        environment:
+            POSTGRES_USER: app
+            POSTGRES_PASSWORD: secret
+            POSTGRES_DB: app
+        volumes:
+            - ./postgres-data:/var/lib/postgresql/data
+        ports:
+            - "127.0.0.1:54324:5432"
