@@ -28,9 +28,18 @@ class RequestSchema
      */
     public function __construct()
     {
-        $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer(null, null, null, new PhpDocExtractor()), new ArrayDenormalizer()];
-        $this->serializer = new Serializer($normalizers, $encoders);
+        $classMetaDataFactory = new ClassMetadataFactory(
+            new AnnotationLoader(
+                new AnnotationReader()
+            )
+        );
+        $objectNormalizer = new ObjectNormalizer($classMetaDataFactory, null, null, new PhpDocExtractor());
+        $this->serializer = new Serializer([
+            new ArrayDenormalizer(),
+            $objectNormalizer,
+        ], [
+            new JsonEncoder(),
+        ]);
     }
 
     public function deserializeBySchema(ServerRequestInterface $request, string $schema) {
