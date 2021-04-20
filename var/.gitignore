@@ -1,0 +1,11 @@
+*
+!cache
+!cache/.gitkeep
+!.gitignore
+!docs
+!docs/.gitkeep
+!doctrine
+!doctrine/.gitkeep
+!doctrine/cache
+!doctrine/cache/.gitkeep
+!.gitignore
