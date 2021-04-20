@@ -20,11 +20,16 @@ return [
     EntityManagerInterface::class => static function (ContainerInterface $container): EntityManagerInterface {
         $settings = $container->get('settings')['doctrine'];
 
+        $cache = null;
+        if (!$settings['development']) {
+            $cache = $settings['cache_dir'] ? new FilesystemCache($settings['cache_dir']) : new ArrayCache();
+        }
+
         $config = Setup::createAnnotationMetadataConfiguration(
             $settings['metadata_dirs'],
             $settings['dev_mode'],
             $settings['proxy_dir'],
-            $settings['cache_dir'] ? new FilesystemCache($settings['cache_dir']) : new ArrayCache(),
+            $cache,
             $settings['useSimpleAnnotationReader'],
         );
 

@@ -18,6 +18,7 @@ return [
         ],
 
         'doctrine' => [
+            'development' => true,
             // if true, metadata caching is forcefully disabled
             'dev_mode' => true,
             'cache_dir' => __DIR__ . '/../../var/cache/doctrine/cache',
@@ -25,7 +26,7 @@ return [
             'useSimpleAnnotationReader' => false,
 
             // you should add any other path containing annotated entity classes
-            'metadata_dirs' => [__DIR__ . '/../../src/Application/Domain/Entity'],
+            'metadata_dirs' => [__DIR__ . '/../../src/Application/Domain'],
 
             'connection' => [
                 'driver' => 'pdo_pgsql',
