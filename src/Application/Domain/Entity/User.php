@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace App\Application\Domain\Entity;
 
 
+use App\Core\Service\PasswordService;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -63,11 +64,11 @@ class User
      * @param string|null $name
      * @param string $password
      */
-    public function __construct(string $email, ?string $name, string $password)
+    public function __construct(string $email, ?string $name, string $password, PasswordService $passwordService)
     {
         $this->email = $email;
         $this->name = $name;
-        $this->password_hash = $password;
+        $this->password_hash = $passwordService->hash($password);
         $this->activated = false;
     }
 
