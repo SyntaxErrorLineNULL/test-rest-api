@@ -19,6 +19,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 {
     /**
      * @param User $user
+     * @throws \Doctrine\ORM\ORMException
      */
     public function add(User $user): void
     {
@@ -26,7 +27,8 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     }
 
     /**
-     * @param User $user
+     * @param \App\Application\Domain\Entity\User $user
+     * @throws \Doctrine\ORM\ORMException
      */
     public function remove(User $user): void
     {
@@ -35,7 +37,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 
     /**
      * @param int $id
-     * @return User
+     * @return \App\Application\Domain\Entity\User
      */
     public function getById(int $id): User
     {
@@ -49,7 +51,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
 
     /**
      * @param string $email
-     * @return User|null
+     * @return \App\Application\Domain\Entity\User|null
      */
     public function findByEmail(string $email): ?User
     {
@@ -61,7 +63,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     /**
      * @param string $email
      * @param string $password
-     * @return User|null
+     * @return \App\Application\Domain\Entity\User|null
      */
     public function findByEmailAndPassword(string $email, string $password): ?User
     {

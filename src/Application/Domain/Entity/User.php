@@ -12,11 +12,12 @@ namespace App\Application\Domain\Entity;
 use App\Core\Service\PasswordService;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Application\Infrastructure\Repository\DoctrineUserRepository;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=DoctrineUserRepository::class)
  * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="user")
+ * @ORM\Table(name="`user`")
  */
 class User
 {
@@ -44,7 +45,7 @@ class User
      * @ORM\Column(type="text",nullable=false)
      * @var string
      */
-    public string $password_hash;
+    public string $passwordHash;
 
     /**
      * @ORM\Column(type="boolean")
@@ -56,25 +57,27 @@ class User
      * @ORM\Column(type="datetime_immutable")
      * @var DateTimeImmutable|null
      */
-    public ?DateTimeImmutable $createdAt;
+    public ?DateTimeImmutable $createdAt = null;
 
     /**
      * User constructor.
      * @param string $email
      * @param string|null $name
      * @param string $password
+     * @param \App\Core\Service\PasswordService $passwordService
      */
     public function __construct(string $email, ?string $name, string $password, PasswordService $passwordService)
     {
         $this->email = $email;
         $this->name = $name;
-        $this->password_hash = $passwordService->hash($password);
+        $this->passwordHash = $passwordService->hash($password);
         $this->activated = false;
+
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function isActive(): void
     {
         $this->activated = true;
-        $this->createdAt = new DateTimeImmutable();
     }
 }
