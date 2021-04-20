@@ -13,9 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class SignUpSchema
 {
     /**
-     * @Assert\NotBlank
-     * @Assert\Email(message="Данный email '{{ value }}' является неверным",normalizer="strtolower")
-     * @OA\Property
      * @var string
      */
     public string $email;
