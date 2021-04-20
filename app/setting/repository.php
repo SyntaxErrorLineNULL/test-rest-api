@@ -16,7 +16,7 @@ return [
     UserRepository::class => function (ContainerInterface $container) {
         $em = $container->get(EntityManagerInterface::class);
 
-        $repository = $em->getRepository(User::class);
+        $repository = $em->getMetadataFactory()->getMetadataFor(User::class);
         return new DoctrineUserRepository($em, $repository);
     }
 ];

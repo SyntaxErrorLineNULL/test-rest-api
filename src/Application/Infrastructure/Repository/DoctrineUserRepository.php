@@ -15,25 +15,8 @@ use App\Application\Domain\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
-class DoctrineUserRepository implements UserRepository
+class DoctrineUserRepository extends EntityRepository implements UserRepository
 {
-    /**
-     * @var EntityRepository<User>
-     */
-    private EntityRepository $repository;
-    private EntityManagerInterface $_em;
-
-    /**
-     * DoctrineUserRepository constructor.
-     * @param EntityRepository $repository
-     * @param EntityManagerInterface $_em
-     */
-    public function __construct(EntityManagerInterface $_em, EntityRepository $repository)
-    {
-        $this->_em = $_em;
-        $this->repository = $repository;
-    }
-
     /**
      * @param User $user
      */
@@ -57,7 +40,7 @@ class DoctrineUserRepository implements UserRepository
     public function getById(int $id): User
     {
         /** @var User|null $user */
-        $user = $this->repository->find($id);
+        $user = $this->find($id);
         if ($user === null) {
             throw new DomainRecordNotFoundException('User is not found');
         }
@@ -71,7 +54,7 @@ class DoctrineUserRepository implements UserRepository
     public function findByEmail(string $email): ?User
     {
         /** @var User|null $user */
-        $user = $this->repository->findOneBy(['email' => $email]);
+        $user = $this->findOneBy(['email' => $email]);
         return $user;
     }
 
@@ -83,7 +66,7 @@ class DoctrineUserRepository implements UserRepository
     public function findByEmailAndPassword(string $email, string $password): ?User
     {
         /** @var User|null $user */
-        $user =  $this->repository->findOneBy(['email' => $email, 'password' => $password]);
+        $user =  $this->findOneBy(['email' => $email, 'password' => $password]);
         return $user;
     }
 }
