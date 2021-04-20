@@ -16,7 +16,6 @@ use App\Application\Infrastructure\DoctrineFlusher;
 use App\Core\Service\PasswordService;
 use App\Core\Service\RequestSchema;
 use Laminas\Diactoros\Response\EmptyResponse;
-use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;

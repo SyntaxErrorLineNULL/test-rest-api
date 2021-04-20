@@ -4,8 +4,6 @@ up:
 down:
 	docker-compose -f docker-compose.yml down -v --remove-orphans
 restart: init
-docker-pull:
-	docker-compose pull
 build:
 	docker-compose -f docker-compose.yml build --pull
 api-composer-install:
