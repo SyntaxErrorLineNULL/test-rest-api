@@ -42,6 +42,11 @@ class SignUpHandler implements RequestHandlerInterface
         $this->schema = $schema;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     * @throws DomainNotEmptyEmailException
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         /** @var SignUpSchema $requestSchema */
@@ -49,6 +54,7 @@ class SignUpHandler implements RequestHandlerInterface
 
         $user = $this->userRepository->findByEmail($requestSchema->email);
         if ($user !== null) {
+            /** TODO: new exception */
             throw new DomainNotEmptyEmailException('this email is already in use');
         }
 

@@ -64,7 +64,7 @@ class User
      * @param string $email
      * @param string|null $name
      * @param string $password
-     * @param \App\Core\Service\PasswordService $passwordService
+     * @param PasswordService $passwordService
      */
     public function __construct(string $email, ?string $name, string $password, PasswordService $passwordService)
     {
