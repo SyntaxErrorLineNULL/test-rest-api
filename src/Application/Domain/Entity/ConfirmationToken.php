@@ -21,12 +21,12 @@ use DomainException;
 class ConfirmationToken
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(type="integer",nullable=false)
-     * @var int
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     * @var int|null
      */
-    public int $id;
+    public ?int $id = null;
 
     /**
      * @ORM\Column(type="text")
