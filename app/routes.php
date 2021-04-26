@@ -6,6 +6,7 @@
 
 declare(strict_types=1);
 
+use App\Api\Action\ConfirmEmail\ConfirmEmailHandler;
 use App\Api\Action\SignUp\SignUpHandler;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -21,5 +22,6 @@ return function (App $app) {
 
     $app->group('/api', function (Group $group) {
         $group->post('/sign_up', SignUpHandler::class);
+        $group->post('/confirm_email', ConfirmEmailHandler::class); //
     });
 };
