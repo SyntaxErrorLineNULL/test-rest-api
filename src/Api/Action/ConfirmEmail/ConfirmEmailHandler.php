@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace App\Api\Action\ConfirmEmail;
 
 
-use App\Api\Action\Other\Exception\ConfirmEmailException;
+use App\Api\Other\Exception\ConfirmEmailException;
 use App\Application\Domain\Repository\ConfirmationTokenRepository;
 use App\Application\Infrastructure\DoctrineFlusher;
 use App\Core\Service\RequestSchema;
@@ -37,6 +37,11 @@ class ConfirmEmailHandler implements RequestHandlerInterface
         $this->schema = $schema;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     * @throws ConfirmEmailException
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         /** @var ConfirmEmailSchema $requestSchema */
@@ -44,7 +49,7 @@ class ConfirmEmailHandler implements RequestHandlerInterface
         $token = $this->confirmationTokenRepository->findByToken($requestSchema->token);
 
         if ($token === null) {
-            return new EmptyResponse(403);
+            throw new ConfirmEmailException('token is not found', 400);
         }
 
         $token->userId->isActive();

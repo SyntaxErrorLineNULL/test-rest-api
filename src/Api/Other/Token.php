@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace App\Api\Action\Other;
+namespace App\Api\Other;
 
 
 class Token

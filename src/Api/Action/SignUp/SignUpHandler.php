@@ -9,17 +9,16 @@ declare(strict_types=1);
 namespace App\Api\Action\SignUp;
 
 
-use App\Api\Action\Other\Token;
+use App\Api\Other\Exception\SignUpException;
+use App\Api\Other\Token;
 use App\Application\Domain\DomainException\DomainNotEmptyEmailException;
 use App\Application\Domain\Entity\ConfirmationToken;
 use App\Application\Domain\Entity\User;
 use App\Application\Domain\Repository\ConfirmationTokenRepository;
 use App\Application\Domain\Repository\UserRepository;
 use App\Application\Infrastructure\DoctrineFlusher;
-use App\Core\Service\JWTService;
 use App\Core\Service\PasswordService;
 use App\Core\Service\RequestSchema;
-use Laminas\Diactoros\Response\EmptyResponse;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -54,7 +53,7 @@ class SignUpHandler implements RequestHandlerInterface
     /**
      * @param ServerRequestInterface $request
      * @return ResponseInterface
-     * @throws DomainNotEmptyEmailException
+     * @throws SignUpException
      */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
@@ -64,7 +63,7 @@ class SignUpHandler implements RequestHandlerInterface
         $user = $this->userRepository->findByEmail($requestSchema->email);
         if ($user !== null) {
             /** TODO: new exception */
-            throw new DomainNotEmptyEmailException('this email is already in use');
+            throw new SignUpException('this email is already in use', 400);
         }
 
         $user = new User($requestSchema->email, $requestSchema->name, $requestSchema->password, $this->passwordService);
