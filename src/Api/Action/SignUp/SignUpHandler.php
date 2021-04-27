@@ -10,15 +10,14 @@ namespace App\Api\Action\SignUp;
 
 
 use App\Api\Other\Exception\SignUpException;
-use App\Api\Other\Token;
-use App\Application\Domain\DomainException\DomainNotEmptyEmailException;
 use App\Application\Domain\Entity\ConfirmationToken;
 use App\Application\Domain\Entity\User;
 use App\Application\Domain\Repository\ConfirmationTokenRepository;
 use App\Application\Domain\Repository\UserRepository;
 use App\Application\Infrastructure\DoctrineFlusher;
-use App\Core\Service\PasswordService;
-use App\Core\Service\RequestSchema;
+use App\Application\Service\PasswordService;
+use App\Core\Http\Request\RequestSchema;
+use App\Core\Service\Token;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

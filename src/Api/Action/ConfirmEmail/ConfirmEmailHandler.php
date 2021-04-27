@@ -12,7 +12,7 @@ namespace App\Api\Action\ConfirmEmail;
 use App\Api\Other\Exception\ConfirmEmailException;
 use App\Application\Domain\Repository\ConfirmationTokenRepository;
 use App\Application\Infrastructure\DoctrineFlusher;
-use App\Core\Service\RequestSchema;
+use App\Core\Http\Request\RequestSchema;
 use Laminas\Diactoros\Response\EmptyResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -37,11 +37,6 @@ class ConfirmEmailHandler implements RequestHandlerInterface
         $this->schema = $schema;
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @return ResponseInterface
-     * @throws ConfirmEmailException
-     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         /** @var ConfirmEmailSchema $requestSchema */
