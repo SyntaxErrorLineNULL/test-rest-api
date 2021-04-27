@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use Monolog\Logger;
+use Ramsey\Uuid\Uuid;
 
 return [
     'settings' => [
@@ -37,5 +38,7 @@ return [
                 'charset' => 'utf-8',
             ]
         ],
+
+        'secretKey' => Uuid::uuid4()->toString()
     ]
 ];
