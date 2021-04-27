@@ -28,13 +28,13 @@ class JWTService
     public function encode(array $value): string
     {
         Assert::notEmpty($value);
-        return JWT::encode($value, $this->token, 'RS256');
+        return JWT::encode($value, $this->token, 'HS256');
     }
 
     public function decode(string $key): object
     {
         Assert::notEmpty($key);
-        return JWT::decode($key, $this->token, ['RS256']);
+        return JWT::decode($key, $this->token, ['HS256']);
     }
 
 }
