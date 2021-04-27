@@ -39,6 +39,7 @@ return [
             ]
         ],
 
-        'secretKey' => Uuid::uuid4()->toString()
+        // JWT service config
+        'secretKey' => Uuid::uuid4()->toString(),
     ]
 ];
