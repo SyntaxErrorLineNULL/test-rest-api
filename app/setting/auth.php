@@ -12,7 +12,8 @@ use Psr\Container\ContainerInterface;
 return [
     JWTService::class => static function (ContainerInterface $container): JWTService
     {
-        $token = $container->get('settings');
-        return new JWTService($token['secretKey']);
+        $setting = $container->get('settings');
+
+        return new JWTService($setting['secretKey']);
     }
 ];
