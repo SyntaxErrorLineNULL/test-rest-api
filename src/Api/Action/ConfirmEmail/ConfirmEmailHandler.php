@@ -37,6 +37,11 @@ class ConfirmEmailHandler implements RequestHandlerInterface
         $this->schema = $schema;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @return ResponseInterface
+     * @throws ConfirmEmailException
+     */
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         /** @var ConfirmEmailSchema $requestSchema */

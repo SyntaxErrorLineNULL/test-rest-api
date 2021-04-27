@@ -51,7 +51,7 @@ class SignInHandler implements RequestHandlerInterface
         /** @var SignInSchema $requestSchema */
         $requestSchema = $this->schema->deserializeBySchema($request, SignInSchema::class);
 
-        $user = $this->userRepository->findByEmailAndPassword($requestSchema->email, $requestSchema->password);
+        $user = $this->userRepository->findByEmail($requestSchema->email);
 
         if ($user === null) {
             throw new SignInException();
