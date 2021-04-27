@@ -12,6 +12,7 @@ namespace App\Application\Domain\Entity;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use DomainException;
+use Webmozart\Assert\Assert;
 
 /**
  * @ORM\Entity
@@ -58,31 +59,4 @@ class ConfirmationToken
 
         $this->createAt = new DateTimeImmutable();
     }
-
-    public function validateToken(string $token, DateTimeImmutable $time): void
-    {
-        if (!$this->isEqualTo($token)) {
-            throw new DomainException('Token is not validate');
-        }
-
-        if ($this->isExpiredTo($time)) {
-            throw new DomainException('Token is not expired');
-        }
-    }
-
-    public function getValue(): string
-    {
-        return $this->value;
-    }
-
-    private function isEqualTo(string $value): bool
-    {
-        return $this->value === $value;
-    }
-
-    private function isExpiredTo(DateTimeImmutable $time): bool
-    {
-        return $this->createAt < $time;
-    }
-
 }
