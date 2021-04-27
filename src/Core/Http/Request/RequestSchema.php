@@ -6,12 +6,11 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Service;
+namespace App\Core\Http\Request;
 
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Psr\Http\Message\ServerRequestInterface;
-use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
