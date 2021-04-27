@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace App\Application\Domain\Entity;
 
 
-use App\Core\Service\PasswordService;
+use App\Application\Service\PasswordService;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Application\Infrastructure\Repository\DoctrineUserRepository;
