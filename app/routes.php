@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use App\Api\Action\ConfirmEmail\ConfirmEmailHandler;
+use App\Api\Action\Profile\ProfileHandler;
 use App\Api\Action\SignIn\SignInHandler;
 use App\Api\Action\SignUp\SignUpHandler;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -25,5 +26,6 @@ return function (App $app) {
         $group->post('/sign_up', SignUpHandler::class);
         $group->post('/confirm_email', ConfirmEmailHandler::class);
         $group->post('/sign_in', SignInHandler::class);
+        $group->get('/profile', ProfileHandler::class);
     });
 };
