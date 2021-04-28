@@ -47,8 +47,4 @@ class RequestSchema
     public function deserializeBySchema(ServerRequestInterface $request, string $schema) {
         return $this->serializer->deserialize($request->getBody(), $schema, 'json');
     }
-
-    private function validate() {
-        /** TODO validate schema */
-    }
 }
