@@ -40,6 +40,6 @@ return [
         ],
 
         // JWT service config
-        'secretKey' => Uuid::uuid4()->toString(),
+        'secretKey' => 'Kn7qYAGCzf',
     ]
 ];
