@@ -17,6 +17,16 @@ return [
             'level' => Logger::DEBUG,
         ],
 
+        'translator' => [
+            'lang' => 'ru',
+            'xlf-ru' => __DIR__ . '/../../vendor/symfony/validator/Resources/translations/validators.ru.xlf',
+            'xlf-en' => __DIR__ . '/../../vendor//validator/Resources/translations/validators.en.xlf'
+        ],
+
+        'errors' => [
+            'display_details' => true
+        ],
+
         'doctrine' => [
             'development' => true,
             // if true, metadata caching is forcefully disabled
