@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace App\Core\Http\Request;
 
 
+use App\Core\Http\Validator\Validator;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
@@ -22,11 +23,12 @@ use Symfony\Component\Serializer\Serializer;
 class RequestSchema
 {
     private Serializer $serializer;
+    private Validator $validator;
 
     /**
      * RequestSchema constructor.
      */
-    public function __construct()
+    public function __construct(Validator $validator)
     {
         $classMetaDataFactory = new ClassMetadataFactory(
             new AnnotationLoader(
@@ -42,9 +44,13 @@ class RequestSchema
         ], [
             new JsonEncoder(),
         ]);
+
+        $this->validator = $validator;
     }
 
     public function deserializeBySchema(ServerRequestInterface $request, string $schema) {
-        return $this->serializer->deserialize($request->getBody(), $schema, 'json');
+        $schema = $this->serializer->deserialize($request->getBody(), $schema, 'json');
+        $this->validator->validate($schema);
+        return $schema;
     }
 }
