@@ -7,7 +7,6 @@
 declare(strict_types=1);
 
 use Monolog\Logger;
-use Ramsey\Uuid\Uuid;
 
 return [
     'settings' => [
@@ -40,6 +39,6 @@ return [
         ],
 
         // JWT service config
-        'secretKey' => 'Kn7qYAGCzf',
+        'secretKey' => 'MTkN6mQVu7AsSHHmX7jDhpW0bbBT3C4p',
     ]
 ];
