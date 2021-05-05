@@ -6,12 +6,12 @@
 
 declare(strict_types=1);
 
-namespace App\Api\Other\Auth;
+namespace App\Api\Components\Auth;
 
 
 class AuthenticationId
 {
-    const REQUEST_ATTRIBUTE = "userId";
+    const ATTRIBUTE = "userId";
 
     private ?int $id;
 

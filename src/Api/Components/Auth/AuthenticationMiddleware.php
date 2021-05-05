@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace App\Api\Other\Auth;
+namespace App\Api\Components\Auth;
 
 
 use App\Core\Service\JWTService;
@@ -39,7 +39,7 @@ class AuthenticationMiddleware implements Middleware
             $header = $request->getHeaderLine('Authorization');
             $request = $this->getAuthenticationToken($header, $request);
         } else {
-            $request = $request->withAttribute(AuthenticationId::REQUEST_ATTRIBUTE, new AuthenticationId(null));
+            $request = $request->withAttribute(AuthenticationId::ATTRIBUTE, new AuthenticationId(null));
         }
 
         return $handler->handle($request);
@@ -53,6 +53,6 @@ class AuthenticationMiddleware implements Middleware
     private function getAuthenticationToken(string $authorizationHeader, ServerRequestInterface $request): ServerRequestInterface
     {
         $token = $this->JWTService->decode($authorizationHeader);
-        return $request->withAttribute(AuthenticationId::REQUEST_ATTRIBUTE, new AuthenticationId($token->id));
+        return $request->withAttribute(AuthenticationId::ATTRIBUTE, new AuthenticationId($token->id));
     }
 }

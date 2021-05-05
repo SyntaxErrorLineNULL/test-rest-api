@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace App\Core\Http;
 
 
-use App\Api\Other\Auth\AuthenticationId;
+use App\Api\Components\Auth\AuthenticationId;
 use Psr\Http\Message\ServerRequestInterface;
 
 trait Authentication
@@ -18,18 +18,18 @@ trait Authentication
      * @param ServerRequestInterface $request
      * @return AuthenticationId
      */
-    public function authIdentity(ServerRequestInterface $request): AuthenticationId
+    public function getAttribute(ServerRequestInterface $request): AuthenticationId
     {
-        return $request->getAttribute(AuthenticationId::REQUEST_ATTRIBUTE);
+        return $request->getAttribute(AuthenticationId::ATTRIBUTE);
     }
 
     /**
      * @param ServerRequestInterface $request
      * @return int
      */
-    public function authIdentityId(ServerRequestInterface $request): int
+    public function getId(ServerRequestInterface $request): int
     {
-        $user = $this->authIdentity($request);
-        return (int)$user->id();
+        $user = $this->getAttribute($request);
+        return $user->id();
     }
 }
