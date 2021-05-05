@@ -6,6 +6,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: 'PHP CS Differ'
-        uses: SyntaxErrorLineNULL/actions-php-cs-differ@master
         with:
           directory: 'src/'
