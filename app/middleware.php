@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-use App\Api\Other\Auth\AuthenticationMiddleware;
+use App\Api\Components\Auth\AuthenticationMiddleware;
 use App\Core\Http\Middleware\ValidationExceptionHandler;
 use Slim\App;
 
