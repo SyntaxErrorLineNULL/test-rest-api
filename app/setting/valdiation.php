@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Psr\Container\ContainerInterface;
-use Symfony\Component\Translation\Loader\PhpFileLoader;
 use Symfony\Component\Translation\Loader\XliffFileLoader;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Validator\Validation;

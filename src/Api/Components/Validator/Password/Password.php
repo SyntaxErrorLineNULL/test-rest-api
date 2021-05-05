@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace App\Api\Other\Validator\Password;
+namespace App\Api\Components\Validator\Password;
 
 use Symfony\Component\Validator\Constraint;
 
