@@ -9,12 +9,14 @@ declare(strict_types=1);
 namespace App\Api\Action\SignUp;
 
 
-use App\Api\Other\Validator\Password\Password;
+use App\Api\Components\Validator\Password\Password;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class SignUpSchema
 {
     /**
-     *
+     * @Assert\NotBlank
+     * @Assert\Email(message="Данный email '{{ value }}' является неверным")
      * @var string
      */
     public string $email;
