@@ -21,7 +21,7 @@ class ProfileHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $id = $this->authIdentityId($request);
+        $id = $this->getId($request);
 
         return new JsonResponse([$id]);
     }
