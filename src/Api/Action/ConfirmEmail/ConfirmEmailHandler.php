@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace App\Api\Action\ConfirmEmail;
 
 
-use App\Api\Other\Exception\ConfirmEmailException;
+use App\Api\Components\Exception\ConfirmEmailException;
 use App\Application\Domain\Repository\ConfirmationTokenRepository;
 use App\Application\Infrastructure\DoctrineFlusher;
 use App\Core\Http\Request\RequestSchema;

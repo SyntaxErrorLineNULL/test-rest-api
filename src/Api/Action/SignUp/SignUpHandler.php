@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace App\Api\Action\SignUp;
 
 
-use App\Api\Other\Exception\SignUpException;
+use App\Api\Components\Exception\SignUpException;
 use App\Application\Domain\Entity\ConfirmationToken;
 use App\Application\Domain\Entity\User;
 use App\Application\Domain\Repository\ConfirmationTokenRepository;
