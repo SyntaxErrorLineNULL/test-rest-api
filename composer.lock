@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bad7456c019e433f2c63747f7219382b",
+    "content-hash": "3b574590bc871b1ff5534de7d4c37bbe",
     "packages": [
         {
             "name": "brick/math",
@@ -6300,6 +6300,54 @@
                 "source": "https://github.com/Codeception/Stub/tree/3.7.0"
             },
             "time": "2020-07-03T15:54:43+00:00"
+        },
+        {
+            "name": "docler-labs/codeception-slim-module",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DoclerLabs/codeception-slim-module.git",
+                "reference": "f0f8511969b79328a308fe7faad5f514a484a94a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DoclerLabs/codeception-slim-module/zipball/f0f8511969b79328a308fe7faad5f514a484a94a",
+                "reference": "f0f8511969b79328a308fe7faad5f514a484a94a",
+                "shasum": ""
+            },
+            "require": {
+                "codeception/codeception": "^4.0",
+                "codeception/lib-innerbrowser": "^1.0",
+                "php": "^7.2",
+                "slim/psr7": "^1.1",
+                "slim/slim": "^4.2"
+            },
+            "require-dev": {
+                "codeception/module-asserts": "^1.2",
+                "codeception/module-rest": "^1.2",
+                "ext-json": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DoclerLabs\\CodeceptionSlimModule\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Codeception Module for Slim framework.",
+            "keywords": [
+                "codeception",
+                "module",
+                "slim"
+            ],
+            "support": {
+                "issues": "https://github.com/DoclerLabs/codeception-slim-module/issues",
+                "source": "https://github.com/DoclerLabs/codeception-slim-module/tree/2.0.0"
+            },
+            "time": "2020-11-05T13:49:07+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

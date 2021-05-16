@@ -10,4 +10,16 @@ modules:
     enabled:
         # add a framework module here
         - \Helper\Functional
+        - Api:
+              recreateApplicationBetweenTests: false
+              container: tests/container.php
+              headers:
+                Content-Type: application/json
+        - \Helper\DefaultDoctrineProvider:
+                depends: Api
+        - REST:
+                depends: Api
+        - Doctrine2:
+                depends:
+                    - \Helper\DefaultDoctrineProvider
     step_decorators: ~        

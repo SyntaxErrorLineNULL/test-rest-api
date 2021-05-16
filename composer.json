@@ -55,6 +55,7 @@
         "codeception/module-mezzio": "^2.0",
         "codeception/module-phpbrowser": "^1.0.0",
         "codeception/module-rest": "^1.2",
+        "docler-labs/codeception-slim-module": "^2.0",
         "jangregor/phpstan-prophecy": "^0.8.1",
         "phpunit/phpunit": "^9.2"
     },
